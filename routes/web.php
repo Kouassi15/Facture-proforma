@@ -48,8 +48,13 @@ Route::prefix('client')->name('client.')->group(function () {
 });
 
 Route::prefix('facture')->name('facture.')->group(function () {
+    Route::get('index',[FactureController::class, 'index'])->name('index');
     Route::get('create',[FactureController::class, 'create'])->name('create');
     Route::post('store',[FactureController::class, 'store'])->name('store');
+    Route::get('show/{id}',[FactureController::class, 'show'])->name('show');
+    Route::get('edit/{id}',[FactureController::class, 'edit'])->name('edit');
+    Route::put('update/{id}', [FactureController::class, 'update'])->name('update');
+    Route::delete('delete/{id}', [FactureController::class, 'destroy'])->name('delete');
 });
 
 require __DIR__.'/auth.php';

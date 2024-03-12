@@ -28,14 +28,14 @@
                                 class="icon icon-chart-bar-33"></i><span class="nav-text">Factures</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{route('facture.create')}}">Ajouter</a></li>
-                            <li><a href="./chart-morris.html">Liste des factures</a></li>
+                            <li><a href="{{route('facture.index')}}">Liste des factures</a></li>
                             <!-- <li><a href="./chart-chartjs.html">Chartjs</a></li>
                             <li><a href="./chart-chartist.html">Chartist</a></li>
                             <li><a href="./chart-sparkline.html">Sparkline</a></li>
                             <li><a href="./chart-peity.html">Peity</a></li> -->
                         </ul>
                     </li>
-                    <li class="nav-label">Components</li>
+                    <!-- <li class="nav-label">Components</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-world-2"></i><span class="nav-text">Bootstrap</span></a>
                         <ul aria-expanded="false">
@@ -110,7 +110,7 @@
                             </li>
                             <li><a href="./page-lock-screen.html">Lock Screen</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
 

@@ -13,13 +13,9 @@ return new class extends Migration
     {
         Schema::create('factures', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->nullable()->constrained();
+            $table->integer('client_id')->nullable();
             $table->string('numero')->nullable();
             $table->string('objet')->nullable();
-            $table->string('designation')->nullable();
-            $table->string('quantite')->nullable();
-            $table->string('prix_unit')->nullable();
-            $table->string('montant_total')->nullable();
             $table->string('montant_HT')->nullable();
             $table->string('TVA')->nullable();
             $table->string('remise')->nullable();

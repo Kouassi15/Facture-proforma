@@ -10,13 +10,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Client extends Model
 {
     use HasFactory;
+     protected $guarded = ['id']; 
 
-    public function factures(): BelongsTo
+
+    public function factures(): HasMany
     { 
-        return $this->belongsTo(Facture::class); 
+        return $this->hasMany(Facture::class, 'facture_id', 'id'); 
     }
     // public function clients(): HasMany 
     // { 
-    //     return $this->hasMany(Client::class); 
+    //     return $this->hasMany(Client::class, 'client_id', 'id'); 
     // }
 }
