@@ -55,6 +55,7 @@ Route::prefix('facture')->name('facture.')->group(function () {
     Route::get('edit/{id}',[FactureController::class, 'edit'])->name('edit');
     Route::put('update/{id}', [FactureController::class, 'update'])->name('update');
     Route::delete('delete/{id}', [FactureController::class, 'destroy'])->name('delete');
+    Route::get('generate-pdf/{id}',[FactureController::class, 'generatePDF'])->name('generate-pdf');
 });
 
 require __DIR__.'/auth.php';

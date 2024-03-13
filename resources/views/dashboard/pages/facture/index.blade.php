@@ -68,7 +68,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <span>
-                                                    <a href="{{ route('facture.show',$facture->id)}}" class="mr-4"
+                                                    <a href="{{ route('facture.generate-pdf',$facture->id)}}" class="mr-4"
                                                         data-toggle="tooltip" data-placement="top" title="Voir"><i
                                                             class="fa fa-eye color-muted"></i></a>
                                                     <a href="{{ route('facture.edit', $facture->id)}}" class="mr-4"

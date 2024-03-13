@@ -2,7 +2,7 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Menu</li>
-                    <li><a class="" href="javascript:void()" aria-expanded="false">
+                    <li><a class="" href="{{route('dashboard')}}" aria-expanded="false">
                     <i class="icon icon-home"></i><span class="nav-text">Dashboard</span></a>
                         <!-- <ul aria-expanded="false">
                             <li><a href="./index.html">Dashboard 1</a></li>

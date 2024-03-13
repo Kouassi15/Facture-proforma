@@ -1,6 +1,10 @@
 @extends('dashboard.layout.app')
 @section('content')
-
+<style>
+    td{
+        color: black !important;
+    }
+</style>
 <div class="content-body">
     <div class="container-fluid">
         <div class="row page-titles mx-0">

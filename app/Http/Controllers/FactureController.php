@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
 use App\Models\Devis;
+use App\Models\Client;
 use App\Models\Facture;
 use App\Models\FactureItem;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Validator;
 
 class FactureController extends Controller
@@ -35,117 +37,6 @@ class FactureController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     //dd($request->all());
-    //     $rules = $request ->validate([
-    //         'client_id' => 'required',
-    //         'numero' => 'required',
-    //         'objet' => 'required',
-    //         // 'designation' => 'required',
-    //         // 'quantite' => 'required',
-    //         // 'prix_unit' => 'required',
-    //         //'montant_HT' => 'required',
-    //         //'TVA' => 'required',
-    //         'remise' => 'required',
-    //         //'montant_net' => 'required',
-    //         'date' => 'required',
-    //         'lieu' => 'required',
-    //         'ligne' => 'required',
-    //         'titre' => 'required|array',
-    //     ]);
-
-    //     $messages = [
-    //         'client_id.required' => 'Le champ client est vide !',
-    //         'numero.required' => 'Le numero de facture est obligatoire !',
-    //         'objet.required' => 'L\'objet de la facture est obligatoire !',
-    //         'designation.required' => 'La designation de la factuer est obligatoire !',
-    //         'quantite.required' => 'La quantité est obligatoire !',
-    //         'prix_unit.required' => 'Le prix unitaire est obligatoire !',
-    //         // 'montant_total.required' => 'Le montant total est obligatoire !',
-    //         // 'montant_HT.required' => 'Le montant hors taxe est obligatoire !',
-    //         'TVA.required' => 'La TVA est obligatoire !',
-    //         'remise.required' => 'La remise est obligatoire !',
-    //         // 'montant_net.required' => 'Le montant net est obligatoire !',
-    //         'date.required' => 'La date est obligatoire !',
-    //         'lieu.required' => 'Le lieu est obligatoire !',
-    //         'ligne.required' => 'La ligne est obligatoire !',
-    //     ];
-        
-    //     $total = 0;
-    //         $i = 0;
-
-    //         while ($i < count($rules['titre'])) {
-
-    //             $request->validate([
-    //                 "designation" . $i+1 => 'required|array',
-    //                 "quantite" . $i+1 => 'required|array',
-    //                 "prix_unit" . $i + 1 => 'required|array',
-    //                 'montant_total' => 'required',
-    //             ]);
-
-    //             $i++;
-    //         }
-           
-    //       $facture = new Facture();
-    //       $facture->client_id = $request->client_id;
-    //       $facture->numero = $request->numero;
-    //       $facture->objet = $request->objet;
-    //       $facture->remise = $request->remise;
-    //       $facture->date = $request->date;
-    //       $facture->lieu = $request->lieu;
-    //       $facture->ligne = $request->ligne;
-    //       $facture->montant_HT = $request->montant_total[0] - ($request->montant_total[0] * $request->remise / 100);
-    //       $facture->TVA = $facture->montant_HT * 0.18;
-    //       $facture->montant_net = $facture->montant_HT + $facture->TVA;
-
-    //      // Sauvegarde de la facture principale
-    //      $facture->save();
-
-    //      $i = 0;
-
-    //      while ($i < count($rules['titre'])) {
-
-    //         $montantHT = 0; 
-    //          $section = new Devis();
-    //          $section -> facture_id = $facture->id;
-    //          $section -> titre = $rules['titre'][$i];
-    //          $section -> save();
-    //      // Initialisation du montant HT
-         
-    //      //dd($factureitem);
-    //      foreach ($request->input('designation'. $i + 1) as $key => $value) {
-    //          $factureitem = new FactureItem();
-    //         $factureitem->designation = $value;
-    //         $factureitem->quantite = $request->input('quantite'. $i + 1)[$key];
-    //         $factureitem->prix_unit = $request->input('prix_unit'. $i + 1)[$key];
-    //         $factureitem->montant_total = $request->input('prix_unit'. $i + 1)[$key] * $request->input('quantite')[$key];
-    //         $factureitem->facture_id = $facture->id; 
-    //         $factureitem->save();
-
-    //       $montantHT += $request->input('prix_unit'. $i + 1)[$key] * $request->input('quantite'. $i + 1)[$key];
-    //     // dd($factureitem);
-    //      }
-
-    //    $section -> total_section = $montantHT ;
-    //    $section -> save();
-
-    //    $total += $montantHT ;
-
-    //    $i++;
-
-    //  }
-    //   $facture->montant_net = $total;
-    //  $facture>save();
-    //  try { 
-    //     return redirect()->back()->with('success', 'La facture a été enregistrée avec succès');
-    //  } catch (\Exception $e) {
-    // // Si une erreur se produit lors de l'enregistrement, affichez le message d'erreur
-    //  return redirect()->back()->with('error', 'Erreur lors de l\'enregistrement de la facture : ' . $e->getMessage());
-    //   }
-
-    // }
-
     public function store(Request $request)
 {
     $rules = $request->validate([
@@ -354,6 +245,24 @@ class FactureController extends Controller
                 // Si une erreur se produit lors de l'enregistrement, affichez le message d'erreur
                 return redirect()->back()->with('error', 'Erreur lors de l\'enregistrement de la facture : ' . $e->getMessage());
             }
+    }
+
+    /* generer un pdf*/
+
+    public function generatePDF($id)
+    {
+        // $data = ['facture' => Facture::findOrFail($id)];
+        // $pdf = PDF::loadView('dashboard.pages.facture.pdf.devis', $data);
+        // return $pdf->download('document.pdf');
+        // $facture = Facture::findOrFail($id);
+        $pdf =  Pdf::loadView('dashboard.pages.facture.pdf.devis', ['facture' => Facture::findOrFail($id)]);
+        $pdf->setPaper('A4', 'portrait')->render();
+
+        $response = new Response();
+        $response->setContent($pdf->output())->header('Content-Type', 'application/pdf');
+        $response->header('Content-Disposition', "inline; filename=$id-" . date('dmY') . ".pdf");
+
+        return $response;
     }
 
     /**
