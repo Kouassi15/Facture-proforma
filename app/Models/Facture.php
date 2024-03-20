@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Client;
+use App\Models\Editeur;
 use App\Models\FactureItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -21,6 +22,10 @@ class Facture extends Model
 
     public function client() {
         return $this->belongsTo(Client::class);
+    }
+
+    public function editeur() {
+        return $this->belongsTo(Editeur::class);
     }
     
    

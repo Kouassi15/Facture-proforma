@@ -29,8 +29,9 @@
                         <ul aria-expanded="false">
                             <li><a href="{{route('facture.create')}}">Ajouter</a></li>
                             <li><a href="{{route('facture.index')}}">Liste des factures</a></li>
-                            <!-- <li><a href="./chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="./chart-chartist.html">Chartist</a></li>
+                            <li><a href="{{route('facture.proforma')}}">Présidence</a></li>
+                             <li><a href="{{route('facture.particulier')}}">Particulier</a></li>
+                           <!-- <li><a href="./chart-chartist.html">Chartist</a></li>
                             <li><a href="./chart-sparkline.html">Sparkline</a></li>
                             <li><a href="./chart-peity.html">Peity</a></li> -->
                         </ul>

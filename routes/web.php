@@ -49,8 +49,11 @@ Route::prefix('client')->name('client.')->group(function () {
 
 Route::prefix('facture')->name('facture.')->group(function () {
     Route::get('index',[FactureController::class, 'index'])->name('index');
+    Route::get('index/proforma',[FactureController::class, 'proforma'])->name('proforma');
+    Route::get('index/particulier',[FactureController::class, 'particulier'])->name('particulier');
     Route::get('create',[FactureController::class, 'create'])->name('create');
     Route::post('store',[FactureController::class, 'store'])->name('store');
+    Route::post('ministerestore',[FactureController::class, 'storefacture'])->name('ministerestore');
     Route::get('show/{id}',[FactureController::class, 'show'])->name('show');
     Route::get('edit/{id}',[FactureController::class, 'edit'])->name('edit');
     Route::put('update/{id}', [FactureController::class, 'update'])->name('update');

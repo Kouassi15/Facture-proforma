@@ -7,13 +7,13 @@
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
                             <h4>Bienvenue !</h4>
-                            <p class="mb-0">à voter tableau de bord</p>
+                            <p class="mb-0">à votre tableau de bord</p>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Connexion</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Tableau de bord</a></li>
                         </ol>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="stat-content d-inline-block">
                                     <div class="stat-text">Utilisateurs</div>
-                                    <div class="stat-digit">{{ Auth::user()->id}}</div>
+                                    <div class="stat-digit">{{$users}}</div>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="stat-content d-inline-block">
                                     <div class="stat-text">Clients</div>
-                                    <div class="stat-digit"></div>
+                                    <div class="stat-digit">{{$clients}}</div>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="stat-content d-inline-block">
                                     <div class="stat-text">Factures</div>
-                                    <div class="stat-digit"></div>
+                                    <div class="stat-digit">{{$factures}}</div>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="stat-content d-inline-block">
                                     <div class="stat-text">Montant total</div>
-                                    <div class="stat-digit"></div>
+                                    <div class="stat-digit">{{$montantNet}}</div>
                                 </div>
                             </div>
                         </div>

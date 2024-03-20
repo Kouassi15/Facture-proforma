@@ -39,8 +39,8 @@
                                         <th scope="col">Nom client</th>
                                         <th scope="col">Numero</th>
                                         <th scope="col">Objet</th>
-                                        <th scope="col">Ligne</th>
-                                        <th scope="col">Lieu</th>
+                                        <!-- <th scope="col">Ligne</th>
+                                        <th scope="col">Lieu</th> -->
                                         <th scope="col">Montant HT</th>
                                         <th scope="col">TVA</th>
                                         <th scope="col">Remise</th>
@@ -56,8 +56,8 @@
                                         <td>{{ $facture->client->nom }}</td>
                                         <td>{{ $facture->numero }}</td>
                                         <td>{{ $facture->objet }}</td>
-                                        <td>{{ $facture->ligne }}</td>
-                                        <td>{{ $facture->lieu }}</td>
+                                        <!-- <td>{{ $facture->ligne }}</td>
+                                        <td>{{ $facture->lieu }}</td> -->
                                         <td>{{ $facture->montant_HT }}</td>
                                         <td>{{ $facture->TVA }}</td>
                                         <td>{{ $facture->remise }}</td>

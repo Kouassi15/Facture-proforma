@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Facture - Proforma </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{('./assets/images/favicon.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('./assets/images/favicon.png')}}">
     <link rel="stylesheet" href="{{asset('./assets/vendor/owl-carousel/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('./assets/vendor/owl-carousel/css/owl.theme.default.min.')}}'">
     <link href="{{asset('./assets/vendor/jqvmap/css/jqvmap.min.css')}}" rel="stylesheet">

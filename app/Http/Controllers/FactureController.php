@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Devis;
 use App\Models\Client;
+use App\Models\Editeur;
 use App\Models\Facture;
 use App\Models\FactureItem;
 use Illuminate\Http\Request;
@@ -15,7 +17,37 @@ class FactureController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      */
+    private function codeFacture(){
+        $lastFactureNumber = Facture::max('numero_proforma');
+    
+        // Si aucun numéro de facture n'est enregistré
+        if (!$lastFactureNumber) {
+            return 'BATN°0001 AN ' . Carbon::now()->format('Y');
+        }
+    
+        // Extrait le numéro de la dernière facture
+        $lastNumber = intval(substr($lastFactureNumber, 9));
+    
+        // Incrémente le dernier numéro de facture
+        $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
+    
+        return 'BATN°' . $newNumber . ' AN ' . Carbon::now()->format('Y');
+    }
+    
+    public function particulier(){
+        $clients = Client::all();
+        $editeurs = Editeur::all();
+        return view('dashboard.pages.facture.proforma.particulier',compact('clients','editeurs'));
+
+    }
+
+     public function proforma(){
+        $clients = Client::all();
+        $editeurs = Editeur::all();
+        return view('dashboard.pages.facture.proforma.presidence',compact('clients','editeurs'));
+     }
     public function index()
     {
          $factures = Facture::all();
@@ -30,8 +62,9 @@ class FactureController extends Controller
     public function create()
     {
         $clients = Client::all();
+        $editeurs = Editeur::all();
         // dd($clients);
-        return view('dashboard.pages.facture.create', compact('clients'));
+        return view('dashboard.pages.facture.create', compact('clients','editeurs'));
     }
 
     /**
@@ -41,28 +74,31 @@ class FactureController extends Controller
 {
     $rules = $request->validate([
         'client_id' => 'required',
-        'numero' => 'required',
-        'objet' => 'required',
-        'remise' => 'required',
-        'date' => 'required',
-        'lieu' => 'required',
-        'ligne' => 'required',
-        // 'montant_TH' => 'required',
-        // 'montant_net' => 'required',
+        'editeur_id' => 'required_if:client_id,ministere',
+        'numero' => 'required_if:client_id,ministere|string|max:255',
+        'objet' => 'required|string|max:255',
+        'immatriculation' => 'required|string|max:255',
+        'marque' => 'required|string|max:255',
+        'remise' => 'nullable|numeric',
+        'date' => 'required|date',
+        'incident' => 'required_if:client_id,presidence|string|max:255',
+        'commentaire' => 'required_if:client_id,presidence|string|max:255',
         'titre' => 'required|array',
-        // 'montant_total' => 'required|array',
+        
     ]);
 
-    $messages = [
-        'client_id.required' => 'Le champ client est vide !',
-        'numero.required' => 'Le numéro de facture est obligatoire !',
-        'objet.required' => 'L\'objet de la facture est obligatoire !',
-        'remise.required' => 'La remise est obligatoire !',
-        'date.required' => 'La date est obligatoire !',
-        'lieu.required' => 'Le lieu est obligatoire !',
-        'ligne.required' => 'La ligne est obligatoire !',
-    ];
-
+    // $messages = [
+    //     'client_id.required' => 'Le champ client est vide !',
+    //     'numero.required' => 'Le numéro de facture est obligatoire !',
+    //     'objet.required' => 'L\'objet de la facture est obligatoire !',
+    //     'remise.required' => 'La remise est obligatoire !',
+    //     'date.required' => 'La date est obligatoire !',
+    //     'lieu.required' => 'Le lieu est obligatoire !',
+    //     'ligne.required' => 'La ligne est obligatoire !',
+    // ];
+    
+    $montant_net = 0;
+    $remise = 0;
     $TVA = 0;
     $total_HT = 0;
     $total = 0;
@@ -79,21 +115,21 @@ class FactureController extends Controller
         $i++;
     }
 
-
     $facture = new Facture();
+    $facture->numero_proforma = $this->codeFacture();
     $facture->client_id = $request->client_id;
+    $facture->editeur_id = $request->editeur_id;
     $facture->numero = $request->numero;
     $facture->objet = $request->objet;
     $facture->remise = $request->remise;
     $facture->date = $request->date;
-    $facture->lieu = $request->lieu;
-    $facture->ligne = $request->ligne;
-    //  $facture->montant_HT = $total_HT;      //request->montant_total[0] - ($request->montant_total[0] * $request->remise / 100);
-    //  $facture->TVA = $total_HT * 0.18;
-    // $facture->montant_net = $facture->montant_HT + $facture->TVA;
-
+    $facture->immatriculation = $request->immatriculation;
+    $facture->marque = $request->marque;
+    $facture->incident = $request->incident;
+    $facture->commentaire= $request->commentaire;
     // Sauvegarde de la facture principale
     $facture->save();
+   
 
     $i = 0;
 
@@ -128,12 +164,21 @@ class FactureController extends Controller
 
         $i++;
     }
+       //calculons la remise de la facture
+   
+     $remise = ($total_HT * $facture->remise) / 100;
 
-    $facture->montant_HT = $total_HT;
-    //Calculons la TVA
-     $facture->TVA = $TVA ;
-    $facture->montant_net = $total_HT + $TVA;
-    $facture->save();
+     // Affectation de la remise à l'objet facture
+        $facture->remise = $remise;
+
+     // Calcul du montant net
+        $montant_net = $total_HT + $TVA - $remise;
+
+      // Affectation des valeurs à l'objet facture
+        $facture->montant_HT = $total_HT;
+        $facture->TVA = $TVA ;
+        $facture->montant_net = $montant_net;
+        $facture->save();
     try {
         return redirect()->route('facture.index')->with('success', 'La facture a été enregistrée avec succès');
     } catch (\Exception $e) {
@@ -142,6 +187,174 @@ class FactureController extends Controller
     }
 }
 
+    // Public function store(Request $request){
+
+    //     $rules = $request->validate([
+    //     'client_id' => 'required|exists:clients,id',
+    //     'editeur_id' => 'required|exists:editeurs,id',
+    //     'numero' => 'required|string',
+    //     'objet' => 'required|string',
+    //     'remise' => 'nullable|numeric',
+    //     'date' => 'required|date',
+    //     'immatriculation' => 'nullable|string',
+    //     'marque' => 'nullable|string',
+    //     'incident' => 'nullable|string',
+    //     'commentaire' => 'nullable|string',
+    //     'titre' => 'required|array',
+
+    //     ]);
+
+    //         if ($request->client_id == '1')
+    //         $indic = 'ministere';
+    //     elseif ($request->client_id == '2')
+    //         $indic = 'particulier';
+    //     elseif ($request->client_id == '3')
+    //         $indic = 'presidence';
+    //     else
+    //         return back()->route('facture.index',$request->client->id)->withErrors('Name of customer is not found.');
+
+    //         $facture = new Facture();
+    //     $facture->numero_proforma = $this->codeFacture();
+    //     $facture->client_id = $request->client_id;
+
+    //     if($indic === 'ministere'){
+
+    //     $request->validate([
+    //     'editeur_id' => 'required|exists:editeurs,id',
+    //     'numero' => 'required|string',
+    //     'objet' => 'required|string',
+    //     'remise' => 'nullable|numeric',
+    //     'date' => 'required|date',
+    //     'immatriculation' => 'nullable|string',
+    //     'marque' => 'nullable|string',
+    //     // 'titre' => 'required|array',
+
+    //     ]);
+
+    //     $facture->editeur_id = $request->editeur_id;
+    //     $facture->numero = $request->numero;
+    //     $facture->objet = $request->objet;
+    //     $facture->remise = $request->remise;
+    //     $facture->date = $request->date;
+    //     $facture->immatriculation = $request->immatriculation;
+    //     $facture->marque = $request->marque;
+    //     $facture->incident = $request->incident ?? null;
+    //     $facture->commentaire= $request->commentaire ?? null;
+        
+    //     }elseif ($indic ==='particulier'){
+    //         $request->validate([
+
+    //         'editeur_id' => 'required|exists:editeurs,id',
+    //         'objet' => 'required|string',
+    //         'remise' => 'nullable|numeric',
+    //         'date' => 'required|date',
+    //         'immatriculation' => 'nullable|string',
+    //         'marque' => 'nullable|string',
+    //         // 'titre' => 'required|array',
+
+    //     ]);
+
+    //     $facture->editeur_id = $request->editeur_id;
+    //     $facture->numero = $request->numero ?? null;
+    //     $facture->objet = $request->objet;
+    //     $facture->remise = $request->remise;
+    //     $facture->date = $request->date;
+    //     $facture->immatriculation = $request->immatriculation;
+    //     $facture->marque = $request->marque;
+    //     $facture->incident = $request->incident ?? null;
+    //     $facture->commentaire= $request->commentaire ?? null;
+
+    //     } elseif($indic ==='presidence'){
+
+    //     $request->validate([
+
+    //     'editeur_id' => 'required|exists:editeurs,id',
+    //     'objet' => 'required|string',
+    //     'remise' => 'nullable|numeric',
+    //     'date' => 'required|date',
+    //     'immatriculation' => 'nullable|string',
+    //     'marque' => 'nullable|string',
+    //     'incident' => 'nullable|string',
+    //     'commentaire' => 'nullable|string',
+
+    //     ]);
+
+    //     $facture->editeur_id = $request->editeur_id;
+    //     $facture->numero = $request->numero ?? null;
+    //     $facture->objet = $request->objet;
+    //     $facture->remise = $request->remise;
+    //     $facture->date = $request->date;
+    //     $facture->immatriculation = $request->immatriculation;
+    //     $facture->marque = $request->marque;
+    //     $facture->incident = $request->incident;
+    //     $facture->commentaire= $request->commentaire;
+
+    //     }
+    //     // Sauvegarde de la facture principale
+    //     $facture->save();
+
+    //     $TVA = 0;
+    //         $total_HT = 0;
+    //         $total = 0;
+    //         $i = 0;
+        
+    //         while ($i < count($rules['titre'])) {
+    //             $request->validate([
+    //                 "designation" . ($i + 1) => 'required|array',
+    //                 "quantite" . ($i + 1) => 'required|array',
+    //                 "prix_unit" . ($i + 1) => 'required|array',
+                    
+    //             ]);
+        
+    //             $i++;
+    //         }
+        
+    //     $i = 0;
+
+    //     while ($i < count($rules['titre'])) {
+    //         $montantHT = 0;
+    //         $section = new Devis();
+    //         $section->facture_id = $facture->id;
+    //         $section->titre = $rules['titre'][$i];
+    //         $section->save();
+
+    //         foreach ($request->input('designation' . ($i + 1)) as $key => $value) {
+    //             $factureitem = new FactureItem();
+    //             $factureitem->designation = $value;
+    //             $factureitem->quantite = $request->input('quantite' . ($i + 1))[$key];
+    //             $factureitem->prix_unit = $request->input('prix_unit' . ($i + 1))[$key];
+    //             $factureitem->montant_total = $request->input('prix_unit' . ($i + 1))[$key] * $request->input('quantite' . ($i + 1))[$key];
+    //             //$factureitem->facture_id = $facture->id;
+    //             $factureitem->devis_id = $section->id;
+    //             $factureitem->save();
+
+    //             $montantHT += $request->input('prix_unit' . ($i + 1))[$key] * $request->input('quantite' . ($i + 1))[$key];
+    //         }
+            
+    //         $section->montant_total = $montantHT;
+    //         $section->save();
+
+    //         $total += $montantHT;
+
+    //         $total_HT = $total;
+
+    //         $TVA = $total_HT * 0.18;
+
+    //         $i++;
+    //     }
+
+    //     $facture->montant_HT = $total_HT;
+    //     //Calculons la TVA
+    //     $facture->TVA = $TVA ;
+    //     $facture->montant_net = $total_HT + $TVA;
+    //     $facture->save();
+    //     try {
+    //         return redirect()->route('facture.index')->with('success', 'La facture a été enregistrée avec succès');
+    //     } catch (\Exception $e) {
+    //         // Si une erreur se produit lors de l'enregistrement, affichez le message d'erreur
+    //         return redirect()->back()->with('error', 'Erreur lors de l\'enregistrement de la facture : ' . $e->getMessage());
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -158,8 +371,9 @@ class FactureController extends Controller
     public function edit(string $id)
     {
         $clients = Client::all();
+        $editeurs = Editeur::all();
         $facture = Facture::findOrFail($id);
-        return view('dashboard.pages.facture.edit', compact('facture','clients'));
+        return view('dashboard.pages.facture.edit', compact('facture','clients','editeurs'));
 
     }
 
@@ -170,26 +384,38 @@ class FactureController extends Controller
     { 
         $rules = $request->validate([
             'client_id' => 'required',
+            'editeur_id' => 'required',
             'numero' => 'required',
             'objet' => 'required',
             'remise' => 'required',
             'date' => 'required',
-            'lieu' => 'required',
-            'ligne' => 'required',
+            'immatriculation' => 'required',
+            'marque' => 'required',
+            'incident' => 'required',
+            'commentaire' => 'required',
+            // 'lieu' => 'required',
+            // 'ligne' => 'required',
             'titre' => 'required|array',
         ]);
-    
+         
+        $remise = 0;
+        $montant_net = 0;
         $TVA = 0;
         $total_HT = 0;
      
         $facture = Facture::find($id);
         $facture->client_id = $request->client_id;
+        $facture->editeur_id = $request->editeur_id;
         $facture->numero = $request->numero;
         $facture->objet = $request->objet;
         $facture->remise = $request->remise;
         $facture->date = $request->date;
-        $facture->lieu = $request->lieu;
-        $facture->ligne = $request->ligne;
+        $facture->immatriculation = $request->immatriculation;
+        $facture->marque = $request->marque;
+        $facture->incident = $request->incident;
+        $facture->commentaire= $request->commentaire;
+        // $facture->lieu = $request->lieu;
+        // $facture->ligne = $request->ligne;
 
         // Sauvegarde de la facture principale
         $facture->save();
@@ -229,14 +455,21 @@ class FactureController extends Controller
 
             $total += $montantHT;
             $total_HT = $total;
-            $TVA = $total_HT;
+            $TVA = $total_HT * 0.18;;
         }
        
-        $facture->montant_HT = $total_HT;
-        // //Calculons la TVA
-         $facture->TVA = $total_HT * 0.18;
-        $facture->montant_net = $total_HT + $TVA;
-        // $facture->montant_net = $total;
+        $remise = ($total_HT * $facture->remise) / 100;
+
+        // Affectation de la remise à l'objet facture
+           $facture->remise = $remise;
+   
+        // Calcul du montant net
+           $montant_net = $total_HT + $TVA - $remise;
+   
+         // Affectation des valeurs à l'objet facture
+           $facture->montant_HT = $total_HT;
+           $facture->TVA = $TVA ;
+           $facture->montant_net = $montant_net;
         $facture->save();
 
         try {
