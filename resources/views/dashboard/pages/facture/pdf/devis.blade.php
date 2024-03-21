@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>DEVIS</title>
+    <title>FACTURE</title>
 </head>
 
 <body class="bg-image">
     <div>
         <div class="header__section">
             <div style="text-align: center; color:rgba(1, 57, 136, 0.811); font-weight: bold;">
-                <h1>{{$editeur->nom}}</h1>
+                <h1>{{$facture->editeur->nom}}</h1>
                 <h5 style="color: rgba(6, 183, 127, 0.947); font-weight: bold; margin-top: -5px; text-align: center">Siège: II Plateaux Tél:00225 22415280/ Cél:00225 07522642 / Email:gumalogistique@gmail.com<br/> FOURNITURES DE BUREAUX-MATERIEL ET INFORMATUQUE - ENTRETIEN ET REPARATION VEHICULES - TRAVAUX DE BATIMENT & DIVERS - MATERIEL AGRICOLE & ENGIENS - REPROFILAGE DES ROUTES - ETUDES ET FORMATION</h5> 
             </div>
             <hr>
@@ -69,6 +69,12 @@
                     <tr>
                         <td style="color: rgb(190, 7, 40); margin-bottom: 10px; font-weight: bold" colspan="4">MONTANT HT</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->montant_HT, 0, ',', ' ') }}</td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td style="color: rgb(190, 7, 40); margin-bottom: 10px; font-weight: bold" colspan="4">REMISE</td>
+                        <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->remise, 0, ',', ' ') }}</td>
+                    </tr>
                     </tr>
                     <tr>
                         <td style="color: rgb(190, 7, 40); margin-bottom: 10px; font-weight: bold" colspan="4">TVA 18%</td>

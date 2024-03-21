@@ -383,18 +383,16 @@ class FactureController extends Controller
     public function update(Request $request, string $id)
     { 
         $rules = $request->validate([
-            'client_id' => 'required',
-            'editeur_id' => 'required',
-            'numero' => 'required',
-            'objet' => 'required',
-            'remise' => 'required',
-            'date' => 'required',
-            'immatriculation' => 'required',
-            'marque' => 'required',
-            'incident' => 'required',
-            'commentaire' => 'required',
-            // 'lieu' => 'required',
-            // 'ligne' => 'required',
+            // 'client_id' => 'required',
+            'editeur_id' => 'required_if:client_id,ministere',
+            'numero' => 'required_if:client_id,ministere|string|max:255',
+            'objet' => 'required|string|max:255',
+            'immatriculation' => 'required|string|max:255',
+            'marque' => 'required|string|max:255',
+            'remise' => 'nullable|numeric',
+            'date' => 'required|date',
+            'incident' => 'required_if:client_id,presidence|string|max:255',
+            'commentaire' => 'required_if:client_id,presidence|string|max:255',
             'titre' => 'required|array',
         ]);
          
@@ -404,7 +402,7 @@ class FactureController extends Controller
         $total_HT = 0;
      
         $facture = Facture::find($id);
-        $facture->client_id = $request->client_id;
+        //  $facture->client_id = $request->client_id;
         $facture->editeur_id = $request->editeur_id;
         $facture->numero = $request->numero;
         $facture->objet = $request->objet;
@@ -416,7 +414,7 @@ class FactureController extends Controller
         $facture->commentaire= $request->commentaire;
         // $facture->lieu = $request->lieu;
         // $facture->ligne = $request->ligne;
-
+        // dd('ok');
         // Sauvegarde de la facture principale
         $facture->save();
         $total = 0;
@@ -470,7 +468,7 @@ class FactureController extends Controller
            $facture->montant_HT = $total_HT;
            $facture->TVA = $TVA ;
            $facture->montant_net = $montant_net;
-        $facture->save();
+           $facture->save();
 
         try {
                 return redirect()->route('facture.index')->with('success', 'La facture a été enregistrée avec succès');

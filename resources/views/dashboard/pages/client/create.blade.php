@@ -42,11 +42,6 @@
                                             <div class="form-group col-md-6">
                                                 <label class="prenon">Prénom</label>
                                                 <input type="text" class="form-control @error('prenom') is-invalid @enderror" name="prenom" placeholder="Prénom(s)" value="{{ old('prenom')}}">
-                                                @error('prenom')
-                                            <span class="invalid-feedback mb-3" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
                                             </div>
                                             <div class="form-group col-md-12">
                                                 <label class="contact">Contact</label>
@@ -57,34 +52,7 @@
                                             </span>
                                             @enderror
                                             </div>
-                                            <!-- <div class="form-group col-md-6">
-                                                <label>City</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="form-row">
-                                            <div class="form-group col-md-4">
-                                                <label>State</label>
-                                                <select id="inputState" class="form-control">
-                                                    <option selected>Choose...</option>
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                    <option>Option 3</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label>Zip</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox">
-                                                <label class="form-check-label">
-                                                    Check me out
-                                                </label>
-                                            </div>
-                                        </div> -->
+                                            
                                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                                     </form>
                                 </div>

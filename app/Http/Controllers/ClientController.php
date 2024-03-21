@@ -66,59 +66,30 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    // public function update(Request $request, string $id)
-    // {
-    //     $request->validate([
-    //         'nom' => 'required|string|min:3',
-    //         'prenom' => 'required|string|min:3',
-    //         'contact' => 'required|integer|min:8',
-   
-    //     ], 
-    //         $messages = [
-    //             'nom.required' => 'Ce champ est obligatoire.',
-    //             'nom.string' => 'Ce champ doit être une chaine de caractères.',
-    //             'nom.min' => 'Ce champ doit contenir :min caractères minimun.',
-    //             'prenom.required' => 'Ce champ est obligatoire.',
-    //             'prenom.string' => 'Ce champ doit être une chaine de caractères.',
-    //             'prenom.min' => 'Ce champ doit contenir :min caractères minimun.',
-    //             'contact.required' => 'Ce champ est obligatoire.',
-    //             'contact.integer' => 'Ce champ doit être des chiffres.',
-    //             'contact.min' => 'Ce champ doit contenir :min chiffres minimun.',
-                
-    //         ]
-    //     );
-   
-    //        $client = Client::findOrFail($id);
-    //        $client->nom = $request->nom;
-    //        $client->prenom = $request->prenom;
-    //        $client->contact = $request->contact;
-    //     //    dd('ok');
-    //        $client->save();
-    //        return redirect()->route('client.index')->with('Succès', 'Le client a été enregistrer avec succès');
-    // }
+  
     public function update(Request $request, string $id)
-{
-    $request->validate([
-        'nom' => 'required|string|min:3',
-        'prenom' => 'required|string|min:3',
-        'contact' => 'required|numeric|min:8', // Changer 'integer' à 'numeric'
-    ], 
-    $messages = [
-        'required' => 'Ce champ est obligatoire.',
-        'string' => 'Ce champ doit être une chaîne de caractères.',
-        'min' => 'Ce champ doit contenir au moins :min caractères.',
-        'numeric' => 'Ce champ doit contenir des chiffres.',
-    ]);
+    {
+        $request->validate([
+            'nom' => 'required|string|min:3',
+            'prenom' => 'required|string|min:3',
+            'contact' => 'required|numeric|min:8', // Changer 'integer' à 'numeric'
+        ], 
+        $messages = [
+            'required' => 'Ce champ est obligatoire.',
+            'string' => 'Ce champ doit être une chaîne de caractères.',
+            'min' => 'Ce champ doit contenir au moins :min caractères.',
+            'numeric' => 'Ce champ doit contenir des chiffres.',
+        ]);
 
-    $client = Client::findOrFail($id);
-    $client->nom = $request->nom;
-    $client->prenom = $request->prenom;
-    $client->contact = $request->contact;
+        $client = Client::findOrFail($id);
+        $client->nom = $request->nom;
+        $client->prenom = $request->prenom;
+        $client->contact = $request->contact;
 
-    $client->save();
+        $client->save();
 
-    return redirect()->route('client.index')->with('success', 'Le client a été enregistré avec succès');
-}
+        return redirect()->route('client.index')->with('success', 'Le client a été enregistré avec succès');
+    }
 
 
     /**

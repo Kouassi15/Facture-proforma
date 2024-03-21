@@ -14,13 +14,6 @@
                                 class="icon icon-app-store"></i><span class="nav-text">Clients</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{route('client.create')}}">Ajouter</a></li>
-                            <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="./email-compose.html">Compose</a></li>
-                                    <li><a href="./email-inbox.html">Inbox</a></li>
-                                    <li><a href="./email-read.html">Read</a></li>
-                                </ul>
-                            </li> -->
                             <li><a href="{{route('client.index')}}">Listes des clients</a></li>
                         </ul>
                     </li>
@@ -29,11 +22,8 @@
                         <ul aria-expanded="false">
                             <li><a href="{{route('facture.create')}}">Ajouter</a></li>
                             <li><a href="{{route('facture.index')}}">Liste des factures</a></li>
-                            <li><a href="{{route('facture.proforma')}}">Présidence</a></li>
-                             <li><a href="{{route('facture.particulier')}}">Particulier</a></li>
-                           <!-- <li><a href="./chart-chartist.html">Chartist</a></li>
-                            <li><a href="./chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="./chart-peity.html">Peity</a></li> -->
+                            <!-- <li><a href="{{route('facture.proforma')}}">Présidence</a></li>
+                             <li><a href="{{route('facture.particulier')}}">Particulier</a></li> -->
                         </ul>
                     </li>
                     <!-- <li class="nav-label">Components</li>
