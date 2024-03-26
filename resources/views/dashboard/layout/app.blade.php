@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{asset('./assets/vendor/owl-carousel/css/owl.theme.default.min.')}}'">
     <link href="{{asset('./assets/vendor/jqvmap/css/jqvmap.min.css')}}" rel="stylesheet">
     <link href="{{asset('./assets/css/style.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css">
+    
 
 
 

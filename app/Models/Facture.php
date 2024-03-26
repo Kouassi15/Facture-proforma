@@ -14,7 +14,7 @@ class Facture extends Model
     use HasFactory;
     //  protected $guarded = ['id'];
     protected $guarded = [];
-
+    
     public function factureItem(): HasMany 
     { 
         return $this->hasMany(FactureItem::class); 

@@ -304,19 +304,20 @@
                                                 <div class="col-md-1 mt-10">
                                                     <button type="button" class="btn btn-danger deleteSection"
                                                         data-id="{{ $item->id }}"
-                                                        data-url="{{ route('facture.delete', $item->id) }}">
+                                                        data-url="{{ route('facture.deletesection', $item->id) }}">
                                                         X
                                                     </button>
                                                 </div>
                                                 @foreach ($item->factureitem as $element)
                                                 <div class="row">
                                                     <div class="col-md-5">
+                                                        <input type= "hidden" name="iditem[]" value="{{ $element->id }}"/>
                                                         <label for="designation"
                                                             class="form-label fw-bold">Désignation</label>
                                                         <input type="text"
                                                             class="form-control @error('designation') is-invalid @enderror"
                                                             id="designation" placeholder="Désignation"
-                                                            name="designation1[]"
+                                                            name="designation[]"
                                                             value="{{ old('designation') ?? $element->designation }}"
                                                             required>
                                                         @error('designation')
@@ -325,13 +326,11 @@
                                                         </span>
                                                         @enderror
                                                     </div>
-                                                    
-                                                </div>
-                                                <div class="col-md-3">
+                                                    <div class="col-md-3">
                                                     <label for="quantite" class="form-label fw-bold">Quantité</label>
                                                     <input type="number"
                                                         class="form-control @error('quantite') is-invalid @enderror"
-                                                        id="quantite" placeholder="Quantité" name="quantite1[]"
+                                                        id="quantite" placeholder="Quantité" name="quantite[]"
                                                         value="{{ old('quantite') ?? $element->quantite }}" required>
                                                     @error('quantite')
                                                     <span class="invalid-feedback" role="alert">
@@ -339,13 +338,12 @@
                                                     </span>
                                                     @enderror
                                                 </div>
-                                                
                                                 <div class="col-md-3">
                                                     <label for="prix_unit" class="form-label fw-bold">Prix
                                                         Unitaire</label>
                                                     <input type="number"
                                                         class="form-control @error('prix_unit') is-invalid @enderror"
-                                                        id="prix_unit" placeholder="Prix Unitaire" name="prix_unit1[]"
+                                                        id="prix_unit" placeholder="Prix Unitaire" name="prix_unit[]"
                                                         value="{{ old('prix_unit') ?? $element->prix_unit}}" required>
                                                     @error('prix_unit')
                                                     <span class="invalid-feedback" role="alert">
@@ -353,18 +351,17 @@
                                                     </span>
                                                     @enderror
                                                 </div>
-                                            
+                                                </div>
                                                 <div class="col-md-1 mt-4">
                                                     <button type="button" class="btn btn-danger deleteButton"
                                                         data-id="{{ $element->id }}"
-                                                        data-url="{{ route('facture.delete', $element->id) }}">
+                                                        data-url="{{ route('facture.deleteitem', $element->id) }}">
                                                         <i class="bx bx-trash" aria-hidden="true">X</i>
                                                     </button>
                                                 </div>
                                                 @endforeach
                                             </div>
-                                           
-                                        <!-- </div> -->
+                                        </div>
                                         @endforeach
                                         <div class="form-group col-md-12">
                                             <div class="box-body">
@@ -544,7 +541,7 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                  <label for="quantite" class="form-label">Quantitée(s)</label>
                  <input type="number" class="form-control quantite @error('quantite') is-invalid @enderror" name="quantite${idTitle}[]" placeolder="Quantitée(s)" value="{{ old('quantite[$loop->index]') }}">
                     @error('quantite')
@@ -562,8 +559,7 @@
                         </span>
                     @enderror
                 </div>
-                
-                <div class="col-md-1 mt-3">
+                <div class="col-md-1 mt-2">
                     <button type="button" class="btn btn-danger remove__item__btn">
                         <i class="bx bx-trash" aria-hidden="true">X</i>
                     </button>
@@ -644,6 +640,35 @@
                         }
                     })
 
+                }
+            });
+        });
+        $(document).on('click', '.deleteButton', function () {
+            var deleteButton = $(this);
+            Swal.fire({
+                title: 'Êtes-vous sûr?',
+                text: 'Vous ne pourrez pas annuler cette action!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Oui, supprimer!',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let timerInterval
+                    Swal.fire({
+                        title: 'Chargement!',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            window.location.href = deleteButton.data('url');
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                    })
+                    
                 }
             });
         });

@@ -59,6 +59,11 @@ Route::prefix('facture')->name('facture.')->group(function () {
     Route::put('update/{id}', [FactureController::class, 'update'])->name('update');
     Route::delete('delete/{id}', [FactureController::class, 'destroy'])->name('delete');
     Route::get('generate-pdf/{id}',[FactureController::class, 'generatePDF'])->name('generate-pdf');
+    Route::get('deletesection/{id}',[FactureController::class, 'deleteFactureSection'])->name('deletesection');
+    Route::get('deleteitem/{id}',[FactureController::class, 'deleteFactureItem'])->name('deleteitem');
+    route::post('qte/update/{qteId}',[FactureController::class,'qteUpdate'])->name('qte.update');
+    route::post('prix/update/{prixId}',[FactureController::class,'prixUpdate'])->name('prix.update');
+    route::post('designation/update/{libelleId}',[FactureController::class,'libelleUpdate'])->name('designation.update');
 });
 
 require __DIR__.'/auth.php';

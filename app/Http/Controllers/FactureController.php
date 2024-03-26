@@ -48,6 +48,46 @@ class FactureController extends Controller
         $editeurs = Editeur::all();
         return view('dashboard.pages.facture.proforma.presidence',compact('clients','editeurs'));
      }
+
+     public function qteUpdate(Request $request,$qteId){
+
+        $quantite = $request->quantite;
+        $update = Factureitem::update($qteId,$quantite);
+         
+        //  $notification = array(
+        //     'message' => 'Panier modifié avec succès !',
+        //     'alert-type' => 'success'
+        // );
+
+        return redirect()->back('facture.edit',$factureitem->id)->with();
+     }
+
+     public function prixUpdate(Request $request,$prixuId){
+
+        $prix = $request->prix_unit;
+        $update = Factureitem::update($prixuId,$prix);
+         
+        //  $notification = array(
+        //     'message' => 'Prix modifié avec succès !',
+        //     'alert-type' => 'success'
+        // );
+
+        return redirect()->back()->with();
+     }
+
+     public function libelleUpdate(Request $request,$libelleId){
+
+        $libelle = $request->designation;
+        $update = Factureitem::update($libelleId,$libelle);
+         
+        //  $notification = array(
+        //     'message' => 'Designation modifié avec succès !',
+        //     'alert-type' => 'success'
+        // );
+
+        return redirect()->back()->with();
+     }
+
     public function index()
     {
          $factures = Facture::all();
@@ -382,6 +422,7 @@ class FactureController extends Controller
      */
     public function update(Request $request, string $id)
     { 
+        // dd($request->all());
         $rules = $request->validate([
             // 'client_id' => 'required',
             'editeur_id' => 'required_if:client_id,ministere',
@@ -394,6 +435,7 @@ class FactureController extends Controller
             'incident' => 'required_if:client_id,presidence|string|max:255',
             'commentaire' => 'required_if:client_id,presidence|string|max:255',
             'titre' => 'required|array',
+            'iditem' => 'nullable|array'
         ]);
          
         $remise = 0;
@@ -434,20 +476,20 @@ class FactureController extends Controller
             $designations = $request->input($designationKey, []);
             $quantites = $request->input($quantiteKey, []);
             $prix = $request->input($prix_unitKey, []);
-
-            foreach ($designations as $key => $value) {
-                $item = Factureitem::updateOrCreate([
-                    'devis_id' => $section->id,
-                    'designation' => $value,
-                ], [
-                    'quantite' => $quantites[$key] ?? 0,
-                    'prix_unit' => $prix[$key] ?? 0,
-                    'montant_total' => ($prix[$key] ?? 0) * ($quantites[$key] ?? 0),
-                ]);
-
-                $montantHT+= ($prix[$key] ?? 0) * ($quantites[$key] ?? 0);
-            }
-
+            // dd($request->iditem);
+              foreach($request->iditem as $key => $idsItem_){
+                $item = Factureitem::find($idsItem_);
+                // $item->devis_id = $request->devis_id;
+                $item->designation = $request->designation[$key];
+                $item->quantite = $request->quantite[$key];
+                $item->prix_unit=  $request->prix_unit[$key];
+                $item->montant_total = $request->quantite[$key] * $request->prix_unit[$key];
+                
+                $item->save();
+                $montantHT+= $request->quantite[$key] * $request->prix_unit[$key];
+                
+              }
+              
             $section->montant_total = $montantHT;
             $section->save();
 
@@ -485,7 +527,7 @@ class FactureController extends Controller
         // $data = ['facture' => Facture::findOrFail($id)];
         // $pdf = PDF::loadView('dashboard.pages.facture.pdf.devis', $data);
         // return $pdf->download('document.pdf');
-        // $facture = Facture::findOrFail($id);
+        $facture = Facture::all();
         $pdf =  Pdf::loadView('dashboard.pages.facture.pdf.devis', ['facture' => Facture::findOrFail($id)]);
         $pdf->setPaper('A4', 'portrait')->render();
 
@@ -495,7 +537,26 @@ class FactureController extends Controller
 
         return $response;
     }
+     
+    public function deleteFactureItem($id)
+    {
+        $factureitem = Factureitem::findOrFail($id);
+        $devi_id = $factureitem->devis_id;
+        $item = Factureitem::where('devis_id',$devi_id)->get();
+        if (count($item) <= 1)
+            return back()->withErrors("Impossible de supprimer tous les elements du devis.");
+        $factureitem->delete();
 
+        return back()->with('success', "Element supprimé avec succès.");
+    }
+    public function deleteFactureSection($id)
+    {
+        $devis = Devis::findOrFail($id);
+        $devis->Factureitem()->delete();
+        $devis->delete();
+
+        return back()->with('success', "Section supprimé avec succès.");
+    }
     /**
      * Remove the specified resource from storage.
      */
