@@ -20,14 +20,16 @@ return new class extends Migration
             $table->string('objet')->nullable();
             $table->string('montant_HT')->nullable();
             $table->string('TVA')->nullable();
+            $table->string('taxes')->nullable();
             $table->string('remise')->nullable();
             $table->string('montant_net')->nullable();
-            $table->string('lieu')->nullable();
-            $table->string('ligne')->nullable();
+            // $table->string('lieu')->nullable();
+            // $table->string('ligne')->nullable();
             $table->string('immatriculation')->nullable();
             $table->string('marque')->nullable();
             $table->string('incident')->nullable();
             $table->string('commentaire')->nullable();
+            $table->string('montant_lettre')->nullable();
             $table->date('date')->nullable();
             $table->timestamps();
         });

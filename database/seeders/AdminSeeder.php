@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AdminSeeder extends Seeder
 {
@@ -16,7 +18,9 @@ class AdminSeeder extends Seeder
         $user -> email = 'admin@gmail.com';
         $user -> password = '12345678';
         $user -> name = 'Admin';
+        $user -> role_as = 'admin';
         $user -> save();
+
 
         $admin = new Admin();
         $admin -> user_id = $user->id;

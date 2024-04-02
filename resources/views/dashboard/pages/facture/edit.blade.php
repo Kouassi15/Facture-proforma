@@ -51,64 +51,69 @@
                                     </div> -->
                                     @if($facture->client->nom == "Ministere de l'environnement")
                                     <div class="row ">
-                                     <div class="form-group col-md-6">
-                                        <label class="editeur_id">Editeur</label>
-                                        <select class="form-control @error('editeur_id') is-invalid @enderror"
-                                            name="editeur_id" placeholder="Nom" value="{{ old('editeur_id')}}">
-                                            <option selected disabled value>Selectionner...</option>
-                                            @foreach ($editeurs as $editeur)
-                                            <option value="{{ $editeur->id }}" {{ $editeur->id ? 'selected' : '' }}>{{
-                                                $editeur->libelle }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('editeur_id')
-                                        <span class="invalid-feedback mb-3" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                     </div>
-                                     <div class="form-group col-md-6">
-                                        <label class="numero">Numero</label>
-                                        <input type="text" class="form-control @error('numero') is-invalid @enderror"
-                                            name="numero" placeholder="Numero facture" value="{{ $facture->numero}}">
-                                        @error('numero')
-                                        <span class="invalid-feedback mb-3" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                     </div>
-                                     <div class="form-group col-md-6">
-                                        <label class="objet">Objet:ligne:</label>
-                                        <input type="text" class="form-control @error('objet') is-invalid @enderror"
-                                            name="objet" placeholder="Objet" value="{{ $facture->objet }}">
-                                        @error('objet')
-                                        <span class="invalid-feedback mb-3" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                     </div>
-                                     <div class="form-group col-md-6">
-                                        <label class="immatriculation">Immatriculation</label>
-                                        <input type="text" class="form-control @error('immatriculation') is-invalid @enderror"
-                                            name="immatriculation" placeholder="Immatriculation" value="{{ $facture->immatriculation}}">
-                                        @error('immatriculation')
-                                        <span class="invalid-feedback mb-3" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                     </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="editeur_id">Editeur</label>
+                                            <select class="form-control @error('editeur_id') is-invalid @enderror"
+                                                name="editeur_id" placeholder="Nom" value="{{ old('editeur_id')}}">
+                                                <option selected disabled value>Selectionner...</option>
+                                                @foreach ($editeurs as $editeur)
+                                                <option value="{{ $editeur->id }}" {{ $editeur->id ? 'selected' : ''
+                                                    }}>{{
+                                                    $editeur->libelle }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('editeur_id')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="numero">Numero</label>
+                                            <input type="text"
+                                                class="form-control @error('numero') is-invalid @enderror" name="numero"
+                                                placeholder="Numero facture" value="{{ $facture->numero}}">
+                                            @error('numero')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="objet">Objet:ligne:</label>
+                                            <input type="text" class="form-control @error('objet') is-invalid @enderror"
+                                                name="objet" placeholder="Objet" value="{{ $facture->objet }}">
+                                            @error('objet')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="immatriculation">Immatriculation</label>
+                                            <input type="text"
+                                                class="form-control @error('immatriculation') is-invalid @enderror"
+                                                name="immatriculation" placeholder="Immatriculation"
+                                                value="{{ $facture->immatriculation}}">
+                                            @error('immatriculation')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
 
-                                     <div class="form-group col-md-6">
-                                        <label class="marque">Marque</label>
-                                        <input type="text" class="form-control @error('marque') is-invalid @enderror"
-                                            name="marque" placeholder="Marque" value="{{ $facture->marque}}">
-                                        @error('marque')
-                                        <span class="invalid-feedback mb-3" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                     </div>
-                                     <div class="form-group col-md-6">
+                                        <div class="form-group col-md-6">
+                                            <label class="marque">Marque</label>
+                                            <input type="text"
+                                                class="form-control @error('marque') is-invalid @enderror" name="marque"
+                                                placeholder="Marque" value="{{ $facture->marque}}">
+                                            @error('marque')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6">
                                             <label class="remise">Remise</label>
                                             <input type="number"
                                                 class="form-control remise @error('remise') is-invalid @enderror"
@@ -118,17 +123,29 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                             @enderror
-                                     </div>
-                                     <div class="form-group col-md-12">
-                                        <label class="date">Date</label>
-                                        <input type="date" class="form-control @error('date') is-invalid @enderror"
-                                            name="date" value="{{ $facture->date}}">
-                                        @error('date')
-                                        <span class="invalid-feedback mb-3" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                     </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="montant_lettre">Montant en lettre</label>
+                                            <input type="text"
+                                                class="form-control remise @error('montant_lettre') is-invalid @enderror"
+                                                name="montant_lettre" placeholder="Montant en lettre"
+                                                value="{{$facture->montant_lettre}}">
+                                            @error('montant_lettre')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="date">Date</label>
+                                            <input type="date" class="form-control @error('date') is-invalid @enderror"
+                                                name="date" value="{{ $facture->date}}">
+                                            @error('date')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                     @endif
                                     @if($facture->client->nom == 'Particulier')
@@ -139,7 +156,8 @@
                                                 name="editeur_id" placeholder="Nom" value="{{ old('editeur_id')}}">
                                                 <option selected disabled value>Selectionner...</option>
                                                 @foreach ($editeurs as $editeur)
-                                                <option value="{{ $editeur->id }}" {{ $editeur->id ? 'selected' : '' }}>{{
+                                                <option value="{{ $editeur->id }}" {{ $editeur->id ? 'selected' : ''
+                                                    }}>{{
                                                     $editeur->libelle }}</option>
                                                 @endforeach
                                             </select>
@@ -161,8 +179,10 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="immatriculation">Immatriculation</label>
-                                            <input type="text" class="form-control @error('immatriculation') is-invalid @enderror"
-                                                name="immatriculation" placeholder="Immatriculation" value="{{ $facture->immatriculation}}">
+                                            <input type="text"
+                                                class="form-control @error('immatriculation') is-invalid @enderror"
+                                                name="immatriculation" placeholder="Immatriculation"
+                                                value="{{ $facture->immatriculation}}">
                                             @error('immatriculation')
                                             <span class="invalid-feedback mb-3" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -172,15 +192,28 @@
 
                                         <div class="form-group col-md-6">
                                             <label class="marque">Marque</label>
-                                            <input type="text" class="form-control @error('marque') is-invalid @enderror"
-                                                name="marque" placeholder="Marque" value="{{ $facture->marque}}">
+                                            <input type="text"
+                                                class="form-control @error('marque') is-invalid @enderror" name="marque"
+                                                placeholder="Marque" value="{{ $facture->marque}}">
                                             @error('marque')
                                             <span class="invalid-feedback mb-3" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                             @enderror
                                         </div>
-                                            <div class="form-group col-md-12">
+                                        <div class="form-group col-md-6">
+                                            <label class="montant_lettre">Montant en lettre</label>
+                                            <input type="text"
+                                                class="form-control remise @error('montant_lettre') is-invalid @enderror"
+                                                name="montant_lettre" placeholder="Montant en lettre"
+                                                value="{{$facture->montant_lettre}}">
+                                            @error('montant_lettre')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
                                                 name="date" value="{{ $facture->date}}">
@@ -192,7 +225,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if($facture->client->nom == 'Presidence')
+                                    @if($facture->client->nom == "Presidence de republique de cote d'ivoire")
                                     <div class="row ">
                                         <div class="form-group col-md-6">
                                             <label class="editeur_id">Editeur</label>
@@ -200,7 +233,8 @@
                                                 name="editeur_id" placeholder="Nom" value="{{ old('editeur_id')}}">
                                                 <option selected disabled value>Selectionner...</option>
                                                 @foreach ($editeurs as $editeur)
-                                                <option value="{{ $editeur->id }}" {{ $editeur->id ? 'selected' : '' }}>{{
+                                                <option value="{{ $editeur->id }}" {{ $editeur->id ? 'selected' : ''
+                                                    }}>{{
                                                     $editeur->libelle }}</option>
                                                 @endforeach
                                             </select>
@@ -212,8 +246,9 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="objet">Objet</label>
-                                            <textarea type="text" class="form-control @error('objet') is-invalid @enderror"
-                                                name="objet" placeholder="Objet" value="">{{ $facture->objet }}
+                                            <textarea type="text"
+                                                class="form-control @error('objet') is-invalid @enderror" name="objet"
+                                                placeholder="Objet" value="">{{ $facture->objet }}
                                                 </textarea>
                                             @error('objet')
                                             <span class="invalid-feedback mb-3" role="alert">
@@ -223,8 +258,10 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="immatriculation">Immatriculation</label>
-                                            <input type="text" class="form-control @error('immatriculation') is-invalid @enderror"
-                                                name="immatriculation" placeholder="Immatriculation" value="{{ $facture->immatriculation}}">
+                                            <input type="text"
+                                                class="form-control @error('immatriculation') is-invalid @enderror"
+                                                name="immatriculation" placeholder="Immatriculation"
+                                                value="{{ $facture->immatriculation}}">
                                             @error('immatriculation')
                                             <span class="invalid-feedback mb-3" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -234,8 +271,9 @@
 
                                         <div class="form-group col-md-6">
                                             <label class="marque">Marque</label>
-                                            <input type="text" class="form-control @error('marque') is-invalid @enderror"
-                                                name="marque" placeholder="Marque" value="{{ $facture->marque}}">
+                                            <input type="text"
+                                                class="form-control @error('marque') is-invalid @enderror" name="marque"
+                                                placeholder="Marque" value="{{ $facture->marque}}">
                                             @error('marque')
                                             <span class="invalid-feedback mb-3" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -243,39 +281,51 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                                <label class="incident">Incidents</label>
-                                                <textarea class="form-control @error('incident') is-invalid @enderror"
-                                                    name="incident" placeholder="Incident">{{ $facture->incident }}
+                                            <label class="incident">Incidents</label>
+                                            <textarea class="form-control @error('incident') is-invalid @enderror"
+                                                name="incident" placeholder="Incident">{{ $facture->incident }}
                                         </textarea>
-                                                @error('incident')
-                                                <span class="invalid-feedback mb-3" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="commentaire">Commentaires</label>
-                                                <textarea class="form-control @error('commentaire') is-invalid @enderror"
-                                                    name="commentaire" placeholder="Commentaire">{{ $facture->commentaire }}
+                                            @error('incident')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="commentaire">Commentaires</label>
+                                            <textarea class="form-control @error('commentaire') is-invalid @enderror"
+                                                name="commentaire" placeholder="Commentaire">{{ $facture->commentaire }}
                                         </textarea>
-                                                @error('commentaire')
-                                                <span class="invalid-feedback mb-3" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
+                                            @error('commentaire')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
                                         <div class="form-group col-md-6">
-                                                <label class="remise">Remise</label>
-                                                <input type="number"
-                                                    class="form-control remise @error('remise') is-invalid @enderror"
-                                                    name="remise" placeholder="Remise" value="{{$facture->remise}}">
-                                                @error('remise')
-                                                <span class="invalid-feedback mb-3" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
+                                            <label class="remise">Remise</label>
+                                            <input type="number"
+                                                class="form-control remise @error('remise') is-invalid @enderror"
+                                                name="remise" placeholder="Remise" value="{{$facture->remise}}">
+                                            @error('remise')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
                                         <div class="form-group col-md-6">
+                                            <label class="montant_lettre">Montant en lettre</label>
+                                            <input type="text"
+                                                class="form-control remise @error('montant_lettre') is-invalid @enderror"
+                                                name="montant_lettre" placeholder="Montant en lettre"
+                                                value="{{$facture->montant_lettre}}">
+                                            @error('montant_lettre')
+                                            <span class="invalid-feedback mb-3" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
                                                 name="date" value="{{ $facture->date}}">
@@ -311,7 +361,8 @@
                                                 @foreach ($item->factureitem as $element)
                                                 <div class="row">
                                                     <div class="col-md-5">
-                                                        <input type= "hidden" name="iditem[]" value="{{ $element->id }}"/>
+                                                        <input type="hidden" name="iditem[]"
+                                                            value="{{ $element->id }}" />
                                                         <label for="designation"
                                                             class="form-label fw-bold">Désignation</label>
                                                         <input type="text"
@@ -326,38 +377,58 @@
                                                         </span>
                                                         @enderror
                                                     </div>
-                                                    <div class="col-md-3">
-                                                    <label for="quantite" class="form-label fw-bold">Quantité</label>
-                                                    <input type="number"
-                                                        class="form-control @error('quantite') is-invalid @enderror"
-                                                        id="quantite" placeholder="Quantité" name="quantite[]"
-                                                        value="{{ old('quantite') ?? $element->quantite }}" required>
-                                                    @error('quantite')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="prix_unit" class="form-label fw-bold">Prix
-                                                        Unitaire</label>
-                                                    <input type="number"
-                                                        class="form-control @error('prix_unit') is-invalid @enderror"
-                                                        id="prix_unit" placeholder="Prix Unitaire" name="prix_unit[]"
-                                                        value="{{ old('prix_unit') ?? $element->prix_unit}}" required>
-                                                    @error('prix_unit')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                </div>
+                                                    <div class="col-md-2">
+                                                        <label for="quantite"
+                                                            class="form-label fw-bold">Quantité</label>
+                                                        <input type="number"
+                                                            class="form-control @error('quantite') is-invalid @enderror"
+                                                            id="quantite" placeholder="Quantité" name="quantite[]"
+                                                            value="{{ old('quantite') ?? $element->quantite }}"
+                                                            required>
+                                                        @error('quantite')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="prix_unit" class="form-label fw-bold">Prix
+                                                            Unitaire</label>
+                                                        <input type="number"
+                                                            class="form-control @error('prix_unit') is-invalid @enderror"
+                                                            id="prix_unit" placeholder="Prix Unitaire"
+                                                            name="prix_unit[]"
+                                                            value="{{ old('prix_unit') ?? $element->prix_unit}}"
+                                                            required>
+                                                        @error('prix_unit')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                 <div class="col-md-2">
+                                                        <label for="montant_total" class="form-label fw-bold">Montant
+                                                            total</label>
+                                                        <input type="number"
+                                                            class="form-control @error('montant_total') is-invalid @enderror"
+                                                            id="montant_total" placeholder="Montant total"
+                                                            name="montant_total[]"
+                                                            value="{{ old('montant_total') ?? $element->montant_total}}"
+                                                            required>
+                                                        @error('prix_unit')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                <!-- </div> -->
                                                 <div class="col-md-1 mt-4">
                                                     <button type="button" class="btn btn-danger deleteButton"
                                                         data-id="{{ $element->id }}"
                                                         data-url="{{ route('facture.deleteitem', $element->id) }}">
                                                         <i class="bx bx-trash" aria-hidden="true">X</i>
                                                     </button>
+                                                </div>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -377,9 +448,57 @@
                                                 </div>
 
                                             </div>
+                                        
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                </div>
+                                      
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                                <div class="mb-3">
+                                                <label class="form-label ">Montant HT</label> 
+                                                    <input type="number" name="montant_HT" class="form-control"
+                                                        id="subtotal" placeholder="Montant HT" readonly  value="{{$facture->montant_HT}}">
+                                                </div>
+                                            </div>
+                                                <div class="form-group col-md-3">    
+                                                        <div class="">
+                                                            <label class="form-label ">Taxe</label>
+                                                            <select class="form-control taxe-select" name="taxes">
+                                                                <option selected value="{{$facture->taxes}}" @if ($facture->taxes == $facture->taxes) selected @endif data-value="0">{{$facture->taxes}}</option>
+                                                                    <option value="18" data-value="18%">18%
+                                                                    </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <div class="">
+                                                            <label for="form-label">Montant TVA</label>
+                                                            <input type="number" class="form-control taxe" id="taxe" name="TVA"
+                                                                placeholder="" disabled placeholder="" value="{{$facture->TVA}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                       <label class="remise">Remise</label>
+                                                    <input type="number" class="form-control remiseF"
+                                                        name="remise" placeholder="Remise" value="{{$facture->remise}}">
+                                                    </div>
+
+                                        <div class="form-group col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Montant total</label>
+                                                    <input type="number" class="form-control" name="montant_net"
+                                                        id="total" placeholder="Montant Total" readonly value="{{$facture->montant_net}}">
+                                                </div>
+                                             </div>
+                                            <div class="form-group col-md-6">
+                                             <div class="">
+                                            <label class="form-label">Montant total en lettre</label>
+                                                    <input type="text" class="form-control" placeholder="Montant total en lettre" required name="montant_lettre" value="{{$facture->montant_lettre}}">
+                                                </div>
+                                         </div> 
+                                        
+                                         <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                    </div>
+                                                    </div>  
                             </form>
                         </div>
                     </div>
@@ -462,14 +581,14 @@
         }
     });
     function afficherFormulaire(id) {
-    // Masquer tous les formulaires
-    document.getElementById('ministereF').setAttribute('hidden', 'hidden');
-    document.getElementById('particulierF').setAttribute('hidden', 'hidden');
-    document.getElementById('presidenceF').setAttribute('hidden', 'hidden');
-    
-    // Afficher le formulaire spécifié
-    document.getElementById(id).removeAttribute("hidden");
-  }
+        // Masquer tous les formulaires
+        document.getElementById('ministereF').setAttribute('hidden', 'hidden');
+        document.getElementById('particulierF').setAttribute('hidden', 'hidden');
+        document.getElementById('presidenceF').setAttribute('hidden', 'hidden');
+
+        // Afficher le formulaire spécifié
+        document.getElementById(id).removeAttribute("hidden");
+    }
     $(document).ready(function () {
         "use strict";
         $('.add__devis__btn').click(function () {
@@ -534,7 +653,7 @@
             closestRenovationSection.append(`<div id="${uniqueId}" class="row">
                 <div class="col-md-5">
                     <label for="designation" class="form-label fw-bold">Désignation</label>
-                    <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" placeholder="Désignation" name="designation${idTitle}[]" value="{{ old('designation') }}" required>
+                    <input type="text" class="form-control @error('designation[]') is-invalid @enderror" id="designation" placeholder="Désignation" name="designation${idTitle}[]" value="{{ old('designation') }}" required>
                     @error('designation')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -543,7 +662,7 @@
                 </div>
                 <div class="col-md-2">
                  <label for="quantite" class="form-label">Quantitée(s)</label>
-                 <input type="number" class="form-control quantite @error('quantite') is-invalid @enderror" name="quantite${idTitle}[]" placeolder="Quantitée(s)" value="{{ old('quantite[$loop->index]') }}">
+                 <input type="number" class="form-control quantite @error('quantite[]') is-invalid @enderror" name="quantite${idTitle}[]" placeolder="Quantitée(s)" value="{{ old('quantite[$loop->index]') }}">
                     @error('quantite')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -552,8 +671,17 @@
                 </div>
                 <div class="col-md-3">
                  <label for="prix_unit" class="form-label">Prix unitaire</label>
-                 <input type="number" class="form-control prix @error('prix_unit') is-invalid @enderror" name="prix_unit${idTitle}[]" placeholder="Prix unitaire" name="prix_unit[]" value="{{ old('prix_unit[$loop->index]') }}">
+                 <input type="number" class="form-control prix @error('prix_unit[]') is-invalid @enderror" name="prix_unit${idTitle}[]" placeholder="Prix unitaire" name="prix_unit[]" value="{{ old('prix_unit[$loop->index]') }}">
                     @error('prix_unit')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="col-md-3">
+                 <label for="montant_total" class="form-label">Montant total</label>
+                 <input type="number" class="form-control prix @error('montant_total') is-invalid @enderror" name="montant_total${idTitle}[]" placeholder="Montant total" name="montant_total[]" value="{{ old('montant_total[$loop->index]') }}">
+                    @error('montant_total')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -668,7 +796,7 @@
                             clearInterval(timerInterval)
                         }
                     })
-                    
+
                 }
             });
         });

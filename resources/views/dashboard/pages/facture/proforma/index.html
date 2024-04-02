@@ -259,6 +259,39 @@
         $('.add__items__btn').click(function () {
             addItems();
 
+            // const client = document.getElementById("selectRole");
+    // const ministere = document.getElementById("ministereF");
+    // const particulier = document.getElementById("particulierF");
+    // const presidence = document.getElementById("presidenceF");
+
+    // // Cacher tous les formulaires initialement
+    // ministere.style.display = "none";
+    // particulier.style.display = "none";
+    // presidence.style.display = "none";
+
+    // // Gestionnaire d'événement de changement de sélection du client
+    // client.addEventListener("change", function (e) {
+    //     // Cacher tous les formulaires avant d'afficher celui approprié
+    //     // ministere.style.display = "none";
+    //     // particulier.style.display = "none";
+    //     // presidence.style.display = "none";
+
+    //     // Afficher les formulaires en fonction de la sélection du client
+    //     if (client.value === 'ministere') {
+    //         ministere.style.display = "block";
+    //         particulier.style.display = "none";
+    //         presidence.style.display = "none";
+    //     } else if (client.value === 'particulier') {
+    //         particulier.style.display = "block";
+    //         ministere.style.display = "none";
+    //         presidence.style.display = "none";
+    //     } else if (client.value === 'presidence') {
+    //         presidence.style.display = "block";
+    //         particulier.style.display = "none";
+    //         ministere.style.display = "none";
+    //     }
+    // });
+
             function calculateItemTotal(row) {
                 var quantite = parseFloat(row.find('.quantite').val());
                 var prixUnit = parseFloat(row.find('.prix_unit').val());

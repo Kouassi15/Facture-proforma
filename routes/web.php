@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\ProfileController;
@@ -64,6 +65,15 @@ Route::prefix('facture')->name('facture.')->group(function () {
     route::post('qte/update/{qteId}',[FactureController::class,'qteUpdate'])->name('qte.update');
     route::post('prix/update/{prixId}',[FactureController::class,'prixUpdate'])->name('prix.update');
     route::post('designation/update/{libelleId}',[FactureController::class,'libelleUpdate'])->name('designation.update');
+});
+
+Route::middleware('admin')->prefix('users')->name('users.')->group(function () {
+    Route::get('index',[UserController::class, 'index'])->name('index');
+    Route::get('create',[UserController::class, 'create'])->name('create');
+    Route::post('store',[UserController::class, 'store'])->name('store');
+    Route::get('edit/{id}',[UserController::class, 'edit'])->name('edit');
+    Route::put('update/{id}',[UserController::class, 'update'])->name('update');
+    Route::delete('delete/{id}',[UserController::class, 'destroy'])->name('delete');
 });
 
 require __DIR__.'/auth.php';

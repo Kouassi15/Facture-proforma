@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => '12345678',
         ]);
+        $this->call([AdminSeeder::class,EditeurSeeder::class,FactureSeeder::class]);
     }
 }

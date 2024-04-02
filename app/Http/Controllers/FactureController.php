@@ -39,7 +39,7 @@ class FactureController extends Controller
     public function particulier(){
         $clients = Client::all();
         $editeurs = Editeur::all();
-        return view('dashboard.pages.facture.proforma.particulier',compact('clients','editeurs'));
+        return view('dashboard.pages.facture.proforma.facture',compact('clients','editeurs'));
 
     }
 
@@ -112,6 +112,7 @@ class FactureController extends Controller
      */
     public function store(Request $request)
 {
+//   dd($request);
     $rules = $request->validate([
         'client_id' => 'required',
         'editeur_id' => 'required_if:client_id,ministere',
@@ -121,22 +122,17 @@ class FactureController extends Controller
         'marque' => 'required|string|max:255',
         'remise' => 'nullable|numeric',
         'date' => 'required|date',
+        'montant_lettre' => 'required',
+        'montant_HT' => 'required',
+        'montant_net' => 'required',
+        // 'TVA' => 'nullable|numeric',
+        'taxes' => 'required',
         'incident' => 'required_if:client_id,presidence|string|max:255',
         'commentaire' => 'required_if:client_id,presidence|string|max:255',
         'titre' => 'required|array',
         
     ]);
 
-    // $messages = [
-    //     'client_id.required' => 'Le champ client est vide !',
-    //     'numero.required' => 'Le numéro de facture est obligatoire !',
-    //     'objet.required' => 'L\'objet de la facture est obligatoire !',
-    //     'remise.required' => 'La remise est obligatoire !',
-    //     'date.required' => 'La date est obligatoire !',
-    //     'lieu.required' => 'Le lieu est obligatoire !',
-    //     'ligne.required' => 'La ligne est obligatoire !',
-    // ];
-    
     $montant_net = 0;
     $remise = 0;
     $TVA = 0;
@@ -149,6 +145,7 @@ class FactureController extends Controller
             "designation" . ($i + 1) => 'required|array',
             "quantite" . ($i + 1) => 'required|array',
             "prix_unit" . ($i + 1) => 'required|array',
+            //  "montant_total" . ($i + 1) => 'required|array',
             
         ]);
 
@@ -162,6 +159,11 @@ class FactureController extends Controller
     $facture->numero = $request->numero;
     $facture->objet = $request->objet;
     $facture->remise = $request->remise;
+    $facture->montant_lettre = $request->montant_lettre;
+    $facture->montant_HT = $request->montant_HT;
+    $facture->montant_net = $request->montant_net;
+    //  $facture->TVA = $request->TVA;
+    $facture->taxes = $request->taxes;
     $facture->date = $request->date;
     $facture->immatriculation = $request->immatriculation;
     $facture->marque = $request->marque;
@@ -169,7 +171,7 @@ class FactureController extends Controller
     $facture->commentaire= $request->commentaire;
     // Sauvegarde de la facture principale
     $facture->save();
-   
+    // dd('ok');
 
     $i = 0;
 
@@ -189,6 +191,7 @@ class FactureController extends Controller
              //$factureitem->facture_id = $facture->id;
             $factureitem->devis_id = $section->id;
             $factureitem->save();
+           
 
             $montantHT += $request->input('prix_unit' . ($i + 1))[$key] * $request->input('quantite' . ($i + 1))[$key];
         }
@@ -206,9 +209,9 @@ class FactureController extends Controller
     }
        //calculons la remise de la facture
    
-     $remise = ($total_HT * $facture->remise) / 100;
+      $remise = ($total_HT * $facture->remise) / 100;
 
-     // Affectation de la remise à l'objet facture
+    //  // Affectation de la remise à l'objet facture
         $facture->remise = $remise;
 
      // Calcul du montant net
@@ -218,6 +221,11 @@ class FactureController extends Controller
         $facture->montant_HT = $total_HT;
         $facture->TVA = $TVA ;
         $facture->montant_net = $montant_net;
+    // dd('ok');
+    // Calcul de la TVA en fonction du montant HT et du taux de TVA
+        // $total_HT = $request->montant_HT;
+        // $TVA = $total_HT * ($request->TVA / 100);
+        // $montant_net = $total_HT + $TVA - $remise;
         $facture->save();
     try {
         return redirect()->route('facture.index')->with('success', 'La facture a été enregistrée avec succès');
@@ -432,6 +440,12 @@ class FactureController extends Controller
             'marque' => 'required|string|max:255',
             'remise' => 'nullable|numeric',
             'date' => 'required|date',
+            'montant_lettre' => 'required',
+            'montant_lettre' => 'required',
+            'montant_HT' => 'required',
+            'montant_net' => 'required',
+            // 'TVA' => 'nullable|numeric',
+            'taxes' => 'required',
             'incident' => 'required_if:client_id,presidence|string|max:255',
             'commentaire' => 'required_if:client_id,presidence|string|max:255',
             'titre' => 'required|array',
@@ -449,14 +463,16 @@ class FactureController extends Controller
         $facture->numero = $request->numero;
         $facture->objet = $request->objet;
         $facture->remise = $request->remise;
+        $facture->montant_lettre = $request->montant_lettre;
+        $facture->montant_HT = $request->montant_HT;
+        $facture->montant_net = $request->montant_net;
+        //  $facture->TVA = $request->TVA;
+        $facture->taxes = $request->taxes;
         $facture->date = $request->date;
         $facture->immatriculation = $request->immatriculation;
         $facture->marque = $request->marque;
         $facture->incident = $request->incident;
         $facture->commentaire= $request->commentaire;
-        // $facture->lieu = $request->lieu;
-        // $facture->ligne = $request->ligne;
-        // dd('ok');
         // Sauvegarde de la facture principale
         $facture->save();
         $total = 0;
@@ -476,7 +492,7 @@ class FactureController extends Controller
             $designations = $request->input($designationKey, []);
             $quantites = $request->input($quantiteKey, []);
             $prix = $request->input($prix_unitKey, []);
-            // dd($request->iditem);
+            //  dd($request->iditem);
               foreach($request->iditem as $key => $idsItem_){
                 $item = Factureitem::find($idsItem_);
                 // $item->devis_id = $request->devis_id;

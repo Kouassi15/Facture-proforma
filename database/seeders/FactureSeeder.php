@@ -23,6 +23,8 @@ class FactureSeeder extends Seeder
                 'numero' => 'N°00126 AN 2024',
                 'Objet' => 'ENTRETIEN ET REPARATION DE VEHICULE',
                 'date' => Carbon::now(),
+                'marque'=>'FORD ESPACE',
+                'immatriculation'=>'D 72 805',
                 'montant_HT' => 500000,
                 'TVA' => 500000 * 0.18,
                 'remise' => 0,

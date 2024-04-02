@@ -3,11 +3,19 @@
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Menu</li>
                     <li><a class="" href="{{route('dashboard')}}" aria-expanded="false">
-                    <i class="icon icon-home"></i><span class="nav-text">Dashboard</span></a>
+                    <i class="icon icon-home"></i><span class="nav-text">Tableau de bord</span></a>
                         <!-- <ul aria-expanded="false">
                             <li><a href="./index.html">Dashboard 1</a></li>
                             <li><a href="./index2.html">Dashboard 2</a></li>
                         </ul> -->
+                    </li>
+                    <li class="nav-label">Gestion des utilisateurs</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-world-2"></i><span class="nav-text">Utilisateurs</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{route('users.create')}}">Ajouter</a></li>
+                            <li><a href="{{route('users.index')}}">Liste des unliasteurs</a></li>
+                        </ul>
                     </li>
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
@@ -22,8 +30,8 @@
                         <ul aria-expanded="false">
                             <li><a href="{{route('facture.create')}}">Ajouter</a></li>
                             <li><a href="{{route('facture.index')}}">Liste des factures</a></li>
-                            <!-- <li><a href="{{route('facture.proforma')}}">Présidence</a></li>
-                             <li><a href="{{route('facture.particulier')}}">Particulier</a></li> -->
+                            <!-- <li><a href="{{route('facture.proforma')}}">Présidence</a></li>-->
+                             <li><a href="{{route('facture.particulier')}}">Particulier</a></li> 
                         </ul>
                     </li>
                     <!-- <li class="nav-label">Components</li>

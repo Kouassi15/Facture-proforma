@@ -109,18 +109,8 @@
                                             </span>
                                             @enderror
                                         </div>
+                                        
                                         <div class="form-group col-md-6">
-                                            <label class="remise">Remise</label>
-                                            <input type="number"
-                                                class="form-control remise @error('remise') is-invalid @enderror"
-                                                name="remise" placeholder="Remise" value="{{ old('remise')}}">
-                                            @error('remise')
-                                            <span class="invalid-feedback mb-3" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-12">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
                                                 name="date" value="{{ old('date')}}">
@@ -181,8 +171,8 @@
                                             </span>
                                             @enderror -->
                                         </div>
-
-                                        <div class="form-group col-md-12">
+                                       
+                                        <div class="form-group col-md-6">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
                                                 name="date" value="{{ old('date')}}">
@@ -269,18 +259,7 @@
                                             </span>
                                             @enderror
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="remise">Remise</label>
-                                            <input type="number"
-                                                class="form-control remise @error('remise') is-invalid @enderror"
-                                                name="remise" placeholder="Remise" value="{{ old('remise')}}">
-                                            @error('remise')
-                                            <span class="invalid-feedback mb-3" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
                                                 name="date" value="{{ old('date')}}">
@@ -292,7 +271,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                <!-- </div> -->
                                 <div class="form-group col-md-12">
                                             <div class="box-body">
                                                 <div id="devis__item"></div>
@@ -300,14 +279,65 @@
                                                     <!-- <div class=""> -->
                                                     <button type="button"
                                                         class="btn btn-outline-info add__devis__btn fs-4">
-                                                        Ajouter un Libelle <span class="fa-solid fa-plus-circle"></span>
+                                                        Ajouter un devis <span class="fa-solid fa-plus-circle"></span>
                                                     </button>
                                                     <!-- </div> -->
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="items__facture"></div>
+                                        <div class="form-group col-md-3">
+                                                <div class="mb-3">
+                                                <label class="form-label ">Montant HT</label> 
+                                                    <input type="number" name="montant_HT" class="form-control"
+                                                        id="subtotal" placeholder="Montant HT" readonly value="0">
+                                                </div>
+                                            </div>
+                                      
+                                    <!-- </div> -->
+                                                <div class="form-group col-md-3">    
+                                                        <div class="">
+                                                            <label class="form-label ">Taxe</label>
+                                                            <select class="form-control taxe-select" name="taxes">
+                                                                <option selected value="" data-value="0">Taxe</option>
+                                                                    <option value="18" data-value="18%">18%
+                                                                    </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <div class="">
+                                                            <label for="form-label">Montant TVA</label>
+                                                            <input type="number" class="form-control taxe" id="taxe" name="TVA"
+                                                                placeholder="" disabled placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                       <label class="remise">Remise</label>
+                                                    <input type="number" class="form-control remiseF"
+                                                        name="remise" placeholder="Remise" value="0">
+                                                    </div>
 
+                                        <div class="form-group col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Montant total</label>
+                                                    <input type="number" class="form-control" name="montant_net"
+                                                        id="total" placeholder="Montant Total" readonly value="0">
+                                                </div>
+                                             </div>
+                                            <div class="form-group col-md-6">
+                                            <div class="">
+                                            <label class="form-label">Montant total en lettre</label>
+                                                    <input type="text" class="form-control" placeholder="Montant total en lettre" required name="montant_lettre">
+                                                </div>
+                                
+                                        </div> 
+                                    <!-- </div> -->
+                                    </div>
+                                        
+                                        
+                                        
+                                </div>
                                 <button type="submit" class="btn btn-primary">Enregistrer</button>
                                 </div>
                             </form>
@@ -325,38 +355,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    // const client = document.getElementById("selectRole");
-    // const ministere = document.getElementById("ministereF");
-    // const particulier = document.getElementById("particulierF");
-    // const presidence = document.getElementById("presidenceF");
-
-    // // Cacher tous les formulaires initialement
-    // ministere.style.display = "none";
-    // particulier.style.display = "none";
-    // presidence.style.display = "none";
-
-    // // Gestionnaire d'événement de changement de sélection du client
-    // client.addEventListener("change", function (e) {
-    //     // Cacher tous les formulaires avant d'afficher celui approprié
-    //     // ministere.style.display = "none";
-    //     // particulier.style.display = "none";
-    //     // presidence.style.display = "none";
-
-    //     // Afficher les formulaires en fonction de la sélection du client
-    //     if (client.value === 'ministere') {
-    //         ministere.style.display = "block";
-    //         particulier.style.display = "none";
-    //         presidence.style.display = "none";
-    //     } else if (client.value === 'particulier') {
-    //         particulier.style.display = "block";
-    //         ministere.style.display = "none";
-    //         presidence.style.display = "none";
-    //     } else if (client.value === 'presidence') {
-    //         presidence.style.display = "block";
-    //         particulier.style.display = "none";
-    //         ministere.style.display = "none";
-    //     }
-    // });
 
     document.addEventListener("DOMContentLoaded", function () {
         var typeClientSelect = document.getElementById("selectRole");
@@ -430,6 +428,71 @@
         $('.add__devis__btn').click(function () {
             addDevis();
         });
+        // Function to calculate total price of an item
+        function calculateItemTotal(row) {
+            var quantity = parseFloat(row.find('.quantite').val());
+            var priceUnit = parseFloat(row.find('.prix').val());
+            var itemTotal = quantity * priceUnit;
+            row.find('.montant').val(itemTotal.toFixed(2));
+            calculateSubTotal();
+            calculateTotal();
+        }
+
+        // Function to calculate subtotal
+        function calculateSubTotal() {
+            var subTotal = 0;
+            $('.montant').each(function () {
+                subTotal += parseFloat($(this).val());
+            });
+            $('#subtotal').val(subTotal.toFixed(2));
+            calculateTax();
+        }
+
+        // Function to calculate tax amount
+        function calculateTax() {
+            var subTotal = parseFloat($('#subtotal').val());
+            var taxPercentage = parseFloat($('.taxe-select option:selected').data('value'));
+            var taxAmount = (subTotal * taxPercentage) / 100;
+            $('#taxe').val(taxAmount.toFixed(2));
+            calculateTotal();
+        }
+
+        // Function to calculate total including tax and discount
+        function calculateTotal() {
+            var subTotal = parseFloat($('#subtotal').val());
+            var tax = parseFloat($('#taxe').val());
+            var discount = parseFloat($('.remiseF').val());
+            var total = subTotal + tax - discount;
+            $('#total').val(total.toFixed(2));
+        }
+
+        // Add item handler
+        $('.add__items__btn').click(function () {
+            addItems();
+        });
+
+        // Remove item handler
+        $(document).on('click', '.remove__item__btn', function () {
+            $(this).closest(".row").remove();
+            calculateSubTotal();
+            calculateTotal();
+        });
+
+        // Change in quantity or price handler
+        $(document).on('change', '.quantite, .prix', function () {
+            calculateItemTotal($(this).closest('.row'));
+        });
+
+        // Change in tax handler
+        $('.taxe-select').change(function () {
+            calculateTax();
+            calculateTotal();
+        });
+
+        // Change in discount handler
+        $('.remise').change(function () {
+            calculateTotal();
+        });
 
         var TitreNbre = 0;
 
@@ -445,7 +508,7 @@
                 </div>
                 <div class="col-md-1 mt-4">
                     <button type="button" class="btn btn-primary add__items__btn">
-                        <i class="bx bx-plus" aria-hidden="true">Add</i>
+                        <i class="bx bx-plus" aria-hidden="true">+</i>
                     </button>
                 </div>
                 <div class="col-md-2 mt-10"></div>
@@ -496,19 +559,28 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-md-3">
-                 <label for="quantite" class="form-label">Quantitée(s)</label>
-                 <input type="number" class="form-control quantite @error('quantite') is-invalid @enderror" name="quantite${idTitle}[]" placeolder="Quantitée(s)" value="{{ old('quantite[$loop->index]') }}">
+                <div class="col-md-2">
+                 <label for="quantite" class="form-label">Quantité</label>
+                 <input type="number" class="form-control quantite @error('quantite') is-invalid @enderror" name="quantite${idTitle}[]" placeolder="Quantité" value="{{ old('quantite[$loop->index]') }}">
                     @error('quantite')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                  <label for="prix_unit" class="form-label">Prix unitaire</label>
                  <input type="number" class="form-control prix @error('prix_unit') is-invalid @enderror" name="prix_unit${idTitle}[]" placeholder="Prix unitaire" name="prix_unit[]" value="{{ old('prix_unit[$loop->index]') }}">
                     @error('prix_unit')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="col-md-2">
+                 <label for="montant_total" class="form-label">Montant total</label>
+                 <input type="number" class="form-control montant @error('montant_total') is-invalid @enderror" name="montant_total${idTitle}[]" placeholder="Montant total" name="montant_total[]" value="{{ old('montant_total[$loop->index]') }}">
+                    @error('montant_total')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -573,5 +645,7 @@
     });
 
 </script>
+
+
 
 @endsection

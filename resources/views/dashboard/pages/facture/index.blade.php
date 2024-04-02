@@ -1,7 +1,7 @@
 @extends('dashboard.layout.app')
 @section('content')
 <style>
-    td{
+    tr{
         color: black !important;
     }
 </style>
@@ -37,10 +37,9 @@
                                     <tr>
                                         <th scope="col">N°</th>
                                         <th scope="col">Nom client</th>
-                                        <th scope="col">Numero</th>
+                                        <th scope="col">N° facture</th>
+                                        <th scope="col">N° proforam</th>
                                         <th scope="col">Objet</th>
-                                        <!-- <th scope="col">Ligne</th>
-                                        <th scope="col">Lieu</th> -->
                                         <th scope="col">Montant HT</th>
                                         <th scope="col">TVA</th>
                                         <th scope="col">Remise</th>
@@ -55,9 +54,8 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $facture->client->nom }}</td>
                                         <td>{{ $facture->numero }}</td>
+                                        <td>{{ $facture->numero_proforma }}</td>
                                         <td>{{ $facture->objet }}</td>
-                                        <!-- <td>{{ $facture->ligne }}</td>
-                                        <td>{{ $facture->lieu }}</td> -->
                                         <td>{{ $facture->montant_HT }}</td>
                                         <td>{{ $facture->TVA }}</td>
                                         <td>{{ $facture->remise }}</td>
@@ -68,16 +66,16 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <span>
-                                                    <a href="{{ route('facture.generate-pdf',$facture->id)}}" class="mr-4"
+                                                    <a href="{{ route('facture.generate-pdf',$facture->id)}}" class="mr-4 btn btn-primary m-2"
                                                         data-toggle="tooltip" target="_blank" data-placement="top" title="Voir"><i
-                                                            class="fa fa-eye color-muted"></i></a>
-                                                    <a href="{{ route('facture.edit', $facture->id)}}" class="mr-4"
+                                                            class=" m-2"></i>Voir</a>
+                                                    <a href="{{ route('facture.edit', $facture->id)}}" class="mr-4 btn btn-success  m-2"
                                                         data-toggle="tooltip" data-placement="top" title="Éditer"><i
-                                                            class="fa fa-pencil color-muted"></i></a>
+                                                            class=" "></i>modifier</a>
                                                     <a href="#"
                                                         onclick="event.preventDefault(); document.getElementById('delete-facture-{{ $facture->id }}').submit();"
-                                                        class="btn-delete" data-toggle="tooltip" data-placement="top"
-                                                        title="Supprimer"><i class="fa fa-close color-danger"></i></a>
+                                                        class="btn btn-danger m-2" data-toggle="tooltip" data-placement="top"
+                                                        title="Supprimer"><i class=" "></i>Supprimer</a>
                                                 </span>
                                             </form>
                                             <form id="delete-facture-{{ $facture->id }}"

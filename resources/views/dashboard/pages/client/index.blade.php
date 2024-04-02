@@ -1,7 +1,7 @@
 @extends('dashboard.layout.app')
 @section('content')
 <style>
-    td{
+    tr{
         color: black !important;
     }
 </style>
@@ -53,16 +53,16 @@
                                             <form action="{{ route('client.delete', $client->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <span>
-                                                    <a href="{{ route('client.show', $client->id) }}" class="mr-4"
+                                                <span style="color:black">
+                                                    <a href="{{ route('client.show', $client->id) }}" class="mr-4 btn btn-primary m-2"
                                                         data-toggle="tooltip" data-placement="top" title="Voir"><i
                                                             class="fa fa-eye color-muted"></i></a>
-                                                    <a href="{{ route('client.edit', $client->id) }}" class="mr-4"
+                                                    <a href="{{ route('client.edit', $client->id) }}" class="mr-4 btn btn-success m-2"
                                                         data-toggle="tooltip" data-placement="top" title="Éditer"><i
                                                             class="fa fa-pencil color-muted"></i></a>
                                                     <a href="#"
                                                         onclick="event.preventDefault(); document.getElementById('delete-client-{{ $client->id }}').submit();"
-                                                        class="btn-delete" data-toggle="tooltip" data-placement="top"
+                                                        class="btn btn-danger m-2" data-toggle="tooltip" data-placement="top"
                                                         title="Supprimer"><i class="fa fa-close color-danger"></i></a>
                                                 </span>
                                             </form>

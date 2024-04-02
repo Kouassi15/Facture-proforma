@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
+            $table->string('contact');
+            $table->string('prenom');
             $table->timestamps();
         });
     }
