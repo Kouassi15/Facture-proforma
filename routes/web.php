@@ -36,44 +36,46 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/deconnexion',[ProfileController::class, 'logout'])->name('profile.logout');
+
+    Route::prefix('client')->name('client.')->group(function () {
+        Route::get('index', [ClientController::class, 'index'])->name('index');
+        Route::get('create', [ClientController::class, 'create'])->name('create');
+        Route::post('store', [ClientController::class, 'store'])->name('store');
+        Route::get('show/{id}', [ClientController::class, 'show'])->name('show');
+        Route::get('edit/{id}', [ClientController::class, 'edit'])->name('edit');
+        Route::put('update/{id}', [ClientController::class, 'update'])->name('update');
+        Route::delete('delete/{id}', [ClientController::class, 'destroy'])->name('delete');
+    });
+
+    Route::prefix('facture')->name('facture.')->group(function () {
+        Route::get('index', [FactureController::class, 'index'])->name('index');
+        Route::get('index/proforma', [FactureController::class, 'proforma'])->name('proforma');
+        Route::get('index/particulier', [FactureController::class, 'particulier'])->name('particulier');
+        Route::get('create', [FactureController::class, 'create'])->name('create');
+        Route::post('store', [FactureController::class, 'store'])->name('store');
+        Route::post('ministerestore', [FactureController::class, 'storefacture'])->name('ministerestore');
+        Route::get('show/{id}', [FactureController::class, 'show'])->name('show');
+        Route::get('edit/{id}', [FactureController::class, 'edit'])->name('edit');
+        Route::put('update/{id}', [FactureController::class, 'update'])->name('update');
+        Route::delete('delete/{id}', [FactureController::class, 'destroy'])->name('delete');
+        Route::get('generate-pdf/{id}', [FactureController::class, 'generatePDF'])->name('generate-pdf');
+        Route::get('deletesection/{id}', [FactureController::class, 'deleteFactureSection'])->name('deletesection');
+        Route::get('deleteitem/{id}', [FactureController::class, 'deleteFactureItem'])->name('deleteitem');
+        route::post('qte/update/{qteId}', [FactureController::class, 'qteUpdate'])->name('qte.update');
+        route::post('prix/update/{prixId}', [FactureController::class, 'prixUpdate'])->name('prix.update');
+        route::post('designation/update/{libelleId}', [FactureController::class, 'libelleUpdate'])->name('designation.update');
+    });
+
+    Route::middleware('admin')->prefix('users')->name('users.')->group(function () {
+        Route::get('index', [UserController::class, 'index'])->name('index');
+        Route::get('create', [UserController::class, 'create'])->name('create');
+        Route::post('store', [UserController::class, 'store'])->name('store');
+        Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit');
+        Route::put('update/{id}', [UserController::class, 'update'])->name('update');
+        Route::delete('delete/{id}', [UserController::class, 'destroy'])->name('delete');
+    });
 });
 
-Route::prefix('client')->name('client.')->group(function () {
-    Route::get('index',[ClientController::class, 'index'])->name('index');
-    Route::get('create',[ClientController::class, 'create'])->name('create');
-    Route::post('store',[ClientController::class, 'store'])->name('store');
-    Route::get('show/{id}',[ClientController::class, 'show'])->name('show');
-    Route::get('edit/{id}',[ClientController::class, 'edit'])->name('edit');
-    Route::put('update/{id}',[ClientController::class, 'update'])->name('update');
-    Route::delete('delete/{id}',[ClientController::class, 'destroy'])->name('delete');
-});
 
-Route::prefix('facture')->name('facture.')->group(function () {
-    Route::get('index',[FactureController::class, 'index'])->name('index');
-    Route::get('index/proforma',[FactureController::class, 'proforma'])->name('proforma');
-    Route::get('index/particulier',[FactureController::class, 'particulier'])->name('particulier');
-    Route::get('create',[FactureController::class, 'create'])->name('create');
-    Route::post('store',[FactureController::class, 'store'])->name('store');
-    Route::post('ministerestore',[FactureController::class, 'storefacture'])->name('ministerestore');
-    Route::get('show/{id}',[FactureController::class, 'show'])->name('show');
-    Route::get('edit/{id}',[FactureController::class, 'edit'])->name('edit');
-    Route::put('update/{id}', [FactureController::class, 'update'])->name('update');
-    Route::delete('delete/{id}', [FactureController::class, 'destroy'])->name('delete');
-    Route::get('generate-pdf/{id}',[FactureController::class, 'generatePDF'])->name('generate-pdf');
-    Route::get('deletesection/{id}',[FactureController::class, 'deleteFactureSection'])->name('deletesection');
-    Route::get('deleteitem/{id}',[FactureController::class, 'deleteFactureItem'])->name('deleteitem');
-    route::post('qte/update/{qteId}',[FactureController::class,'qteUpdate'])->name('qte.update');
-    route::post('prix/update/{prixId}',[FactureController::class,'prixUpdate'])->name('prix.update');
-    route::post('designation/update/{libelleId}',[FactureController::class,'libelleUpdate'])->name('designation.update');
-});
-
-Route::prefix('users')->name('users.')->group(function () {
-    Route::get('index',[UserController::class, 'index'])->name('index');
-    Route::get('create',[UserController::class, 'create'])->name('create');
-    Route::post('store',[UserController::class, 'store'])->name('store');
-    Route::get('edit/{id}',[UserController::class, 'edit'])->name('edit');
-    Route::put('update/{id}',[UserController::class, 'update'])->name('update');
-    Route::delete('delete/{id}',[UserController::class, 'destroy'])->name('delete');
-});
 
 require __DIR__.'/auth.php';

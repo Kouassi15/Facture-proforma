@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Secretariat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class UserController extends Controller
         $elements = new Collection();
         $elements = $elements->merge($users);
         $elements = $elements->merge($secretaires);
-        return view('dashboard.pages.utilisateur.index',compact('elements'));
+        return view('dashboard.pages.utilisateur.index', compact('elements'));
     }
     /**
      * Show the form for creating a new resource.
@@ -40,25 +41,27 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:4',
             'prenom' => 'required|string|max:255',
             'contact' => 'required|string|max:255',
         ]);
         //create user account
         $user = User::create(
             [
-                "name" => $request->name,
+                "name" => $request->name . ' ' . $request->prenom,
                 "email" => $request->email,
                 "password" => Hash::make($request->password)
             ]
-            );
-            
-         $secretaire = new Admin();
-         $secretaire->user_id = $request->user_id;
-         $secretaire->prenom = $request->prenom;
-         $secretaire->contact = $request->contact;
-         $secretaire->save();
-         return redirect()->route('users.index')->with('Seccès','le secretaire à été enregistrer avec succès');
+        );
+
+        $secretaire = new Secretariat();
+        $secretaire->user_id = $user->id;
+        $secretaire->firstname = $request->name;
+        $secretaire->lastname = $request->prenom;
+        $secretaire->contact = $request->contact;
+        $secretaire->save();
+
+        return redirect()->route('users.index')->with('success', 'Le secretaire à été enregistrer avec succès.');
     }
 
     /**
