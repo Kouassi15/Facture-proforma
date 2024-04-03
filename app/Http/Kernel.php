@@ -2,9 +2,9 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\TrustProxies;
+ use App\Http\Middleware\TrustProxies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use App\Http\Middleware\AdminMiddleware;
+ use App\Http\Middleware\AdminMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -17,7 +17,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
-        // \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
@@ -66,7 +66,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        // 'admin' => AdminMiddleware::class,
+         'admin' => AdminMiddleware::class,
     ];
 
 }
