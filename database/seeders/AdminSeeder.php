@@ -16,13 +16,14 @@ class AdminSeeder extends Seeder
     {
         $user = new User();
         $user -> email = 'admin@gmail.com';
-        $user -> password = '12345678';
+        $user -> password = '1234';
         $user -> name = 'Admin';
         $user -> role_as = 'admin';
         $user -> save();
 
 
         $admin = new Admin();
+        $admin->contact = '0405010203';
         $admin -> user_id = $user->id;
         $admin -> save();
     }

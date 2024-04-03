@@ -13,7 +13,7 @@
     <link href="{{asset('./assets/vendor/jqvmap/css/jqvmap.min.css')}}" rel="stylesheet">
     <link href="{{asset('./assets/css/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css">
-    
+
 
 
 
@@ -96,6 +96,7 @@
         Main wrapper end
     ***********************************-->
 
+    @include('partials.script.sweetalert')
     <!--**********************************
         Scripts
     ***********************************-->
