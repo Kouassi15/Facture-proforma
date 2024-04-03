@@ -67,7 +67,7 @@ Route::prefix('facture')->name('facture.')->group(function () {
     route::post('designation/update/{libelleId}',[FactureController::class,'libelleUpdate'])->name('designation.update');
 });
 
-Route::middleware('admin')->prefix('users')->name('users.')->group(function () {
+Route::prefix('users')->name('users.')->group(function () {
     Route::get('index',[UserController::class, 'index'])->name('index');
     Route::get('create',[UserController::class, 'create'])->name('create');
     Route::post('store',[UserController::class, 'store'])->name('store');
