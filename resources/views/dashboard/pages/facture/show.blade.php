@@ -1,6 +1,10 @@
 @extends('dashboard.layout.app')
 @section('content')
-
+<style>
+    tr{
+        color: black !important;
+    }
+    </style>
 <div class="content-body">
     <div class="container-fluid">
         <div class="row page-titles mx-0">
@@ -32,10 +36,9 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Nom client</th>
-                                        <th scope="col">Numero</th>
+                                        <th scope="col">N° facture</th>
+                                        <th scope="col">N° Proforma</th>
                                         <th scope="col">Objet</th>
-                                        <th scope="col">Ligne</th>
-                                        <th scope="col">Lieu</th>
                                         <th scope="col">Montant HT</th>
                                         <th scope="col">TVA</th>
                                         <th scope="col">Remise</th>
@@ -47,9 +50,8 @@
                                     <tr>
                                         <td>{{ $facture->client->nom }}</td>
                                         <td>{{ $facture->numero }}</td>
+                                        <td>{{ $facture->numero_proforma }}</td>
                                         <td>{{ $facture->objet }}</td>
-                                        <td>{{ $facture->ligne }}</td>
-                                        <td>{{ $facture->lieu }}</td>
                                         <td>{{ $facture->montant_HT }}</td>
                                         <td>{{ $facture->TVA }}</td>
                                         <td>{{ $facture->remise }}</td>

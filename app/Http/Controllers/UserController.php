@@ -17,13 +17,14 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        $secretaires = Admin::all();
-        $elements = $users->merge($secretaires);
+        $admins = Admin::all();
+        $secretaires = Secretariat::all();
+        // $elements = $users->merge($secretaires);
         // Fusionnez les collections d'utilisateurs et d'admins
-        $elements = new Collection();
-        $elements = $elements->merge($users);
-        $elements = $elements->merge($secretaires);
-        return view('dashboard.pages.utilisateur.index', compact('elements'));
+        // $elements = new Collection();
+        // $elements = $elements->merge($users);
+        // $elements = $elements->merge($secretaires);
+        return view('dashboard.pages.utilisateur.index', compact('secretaires','admins','users'));
     }
     /**
      * Show the form for creating a new resource.
@@ -61,7 +62,7 @@ class UserController extends Controller
         $secretaire->contact = $request->contact;
         $secretaire->save();
 
-        return redirect()->route('users.index')->with('success', 'Le secretaire à été enregistrer avec succès.');
+        return redirect()->route('users.index')->with('success', 'La secretaire à été enregistrer avec succès.');
     }
 
     /**
@@ -69,7 +70,10 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $users = User::find($id);
+        $admins = Admin::all();
+        $secretaire = Secretariat::find($id);
+        return view('dashboard.pages.utilisateur.show',compact('secretaire','admins','users'));
     }
 
     /**
@@ -77,7 +81,10 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $users = User::all();
+       // $admins = Admin::all();
+        $secretaire = Secretariat::find($id);
+        return view('dashboard.pages.utilisateur.edit',compact('secretaire','users'));
     }
 
     /**
@@ -85,7 +92,36 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:4',
+            'prenom' => 'required|string|max:255',
+            'contact' => 'required|string|max:255',
+        ]);
+        //create user account
+        $user = User::find($id);
+
+        // Vérifier si l'utilisateur existe
+        if ($user) {
+            // Mettre à jour les données de l'utilisateur
+            $user->update([
+                "name" => $request->name . ' ' . $request->prenom,
+                "email" => $request->email,
+                "password" => Hash::make($request->password)
+            ]); 
+            // Sauvegarder les modifications
+            $user->save();
+        }
+
+        $secretaire = Secretariat::find($id);
+        $secretaire->user_id = $user->id;
+        $secretaire->firstname = $request->name;
+        $secretaire->lastname = $request->prenom;
+        $secretaire->contact = $request->contact;
+        $secretaire->save();
+
+        return redirect()->route('users.index')->with('success', 'La secretaire à été enregistrer avec succès.');
     }
 
     /**
@@ -93,6 +129,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $secretaire = Secretariat::findOrFail($id);
+        $secretaire->delete();
+        return redirect()->route('users.index')->with('success', 'La secretaire à été supprimé avec succès.');
     }
 }

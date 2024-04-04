@@ -1,6 +1,11 @@
 @extends('dashboard.layout.app')
 @section('content')
-
+<style>
+    .content-body {
+        background-image: url("assets/images/1.jpg");
+        background-color: #cccccc;
+    }
+</style>
 <div class="content-body">
             <div class="container-fluid">
                 <div class="row page-titles mx-0">
@@ -52,7 +57,7 @@
                                     <i class="ti-layout-grid2 text-pink border-pink"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">Factures</div>
+                                    <div class="stat-text">Nombre de factures </div>
                                     <div class="stat-digit">{{$factures}}</div>
                                 </div>
                             </div>
@@ -72,7 +77,8 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
-        </div>
+</div>
 
 @endsection

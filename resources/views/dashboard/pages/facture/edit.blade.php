@@ -114,29 +114,6 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="remise">Remise</label>
-                                            <input type="number"
-                                                class="form-control remise @error('remise') is-invalid @enderror"
-                                                name="remise" placeholder="Remise" value="{{$facture->remise}}">
-                                            @error('remise')
-                                            <span class="invalid-feedback mb-3" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="montant_lettre">Montant en lettre</label>
-                                            <input type="text"
-                                                class="form-control remise @error('montant_lettre') is-invalid @enderror"
-                                                name="montant_lettre" placeholder="Montant en lettre"
-                                                value="{{$facture->montant_lettre}}">
-                                            @error('montant_lettre')
-                                            <span class="invalid-feedback mb-3" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-6">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
                                                 name="date" value="{{ $facture->date}}">
@@ -196,18 +173,6 @@
                                                 class="form-control @error('marque') is-invalid @enderror" name="marque"
                                                 placeholder="Marque" value="{{ $facture->marque}}">
                                             @error('marque')
-                                            <span class="invalid-feedback mb-3" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="montant_lettre">Montant en lettre</label>
-                                            <input type="text"
-                                                class="form-control remise @error('montant_lettre') is-invalid @enderror"
-                                                name="montant_lettre" placeholder="Montant en lettre"
-                                                value="{{$facture->montant_lettre}}">
-                                            @error('montant_lettre')
                                             <span class="invalid-feedback mb-3" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -297,29 +262,6 @@
                                                 name="commentaire" placeholder="Commentaire">{{ $facture->commentaire }}
                                         </textarea>
                                             @error('commentaire')
-                                            <span class="invalid-feedback mb-3" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="remise">Remise</label>
-                                            <input type="number"
-                                                class="form-control remise @error('remise') is-invalid @enderror"
-                                                name="remise" placeholder="Remise" value="{{$facture->remise}}">
-                                            @error('remise')
-                                            <span class="invalid-feedback mb-3" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="montant_lettre">Montant en lettre</label>
-                                            <input type="text"
-                                                class="form-control remise @error('montant_lettre') is-invalid @enderror"
-                                                name="montant_lettre" placeholder="Montant en lettre"
-                                                value="{{$facture->montant_lettre}}">
-                                            @error('montant_lettre')
                                             <span class="invalid-feedback mb-3" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -595,6 +537,73 @@
             addDevis();
         });
 
+        // Function to calculate total price of an item
+        function calculateItemTotal(row) {
+            var quantity = parseFloat(row.find('.quantite').val());
+            var priceUnit = parseFloat(row.find('.prix').val());
+            var itemTotal = quantity * priceUnit;
+            row.find('.montant').val(itemTotal.toFixed(2));
+            calculateSubTotal();
+            calculateTotal();
+        }
+
+        // Function to calculate subtotal
+        function calculateSubTotal() {
+            var subTotal = 0;
+            $('.montant').each(function () {
+                subTotal += parseFloat($(this).val());
+            });
+            $('#subtotal').val(subTotal.toFixed(2));
+            calculateTax();
+        }
+
+        // Function to calculate tax amount
+        function calculateTax() {
+            var subTotal = parseFloat($('#subtotal').val());
+            var taxPercentage = parseFloat($('.taxe-select option:selected').data('value'));
+            var taxAmount = (subTotal * taxPercentage) / 100;
+            $('#taxe').val(taxAmount.toFixed(2));
+            calculateTotal();
+        }
+
+        // Function to calculate total including tax and discount
+        function calculateTotal() {
+            var subTotal = parseFloat($('#subtotal').val());
+            var tax = parseFloat($('#taxe').val());
+            var discount = parseFloat($('.remiseF').val());
+            var total = subTotal + tax - discount;
+            $('#total').val(total.toFixed(2));
+        }
+
+        // Add item handler
+        $('.add__items__btn').click(function () {
+            addItems();
+        });
+
+        // Remove item handler
+        $(document).on('click', '.remove__item__btn', function () {
+            $(this).closest(".row").remove();
+            calculateSubTotal();
+            calculateTotal();
+        });
+
+        // Change in quantity or price handler
+        $(document).on('change', '.quantite, .prix', function () {
+            calculateItemTotal($(this).closest('.row'));
+        });
+
+        // Change in tax handler
+        $('.taxe-select').change(function () {
+            calculateTax();
+            calculateTotal();
+        });
+
+        // Change in discount handler
+        $('.remise').change(function () {
+            calculateTotal();
+        });
+
+
         var TitreNbre = 0;
 
         function addDevis() {
@@ -680,7 +689,7 @@
                 </div>
                 <div class="col-md-3">
                  <label for="montant_total" class="form-label">Montant total</label>
-                 <input type="number" class="form-control prix @error('montant_total') is-invalid @enderror" name="montant_total${idTitle}[]" placeholder="Montant total" name="montant_total[]" value="{{ old('montant_total[$loop->index]') }}">
+                 <input type="number" class="form-control montant @error('montant_total') is-invalid @enderror" name="montant_total${idTitle}[]" placeholder="Montant total" name="montant_total[]" value="{{ old('montant_total[$loop->index]') }}">
                     @error('montant_total')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

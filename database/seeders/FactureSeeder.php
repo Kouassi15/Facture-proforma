@@ -27,6 +27,7 @@ class FactureSeeder extends Seeder
                 'immatriculation'=>'D 72 805',
                 'montant_HT' => 500000,
                 'TVA' => 500000 * 0.18,
+                'taxes'=> '18%',
                 'remise' => 0,
                 'montant_net' => 500000 + 90000,
             ]);

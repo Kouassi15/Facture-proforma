@@ -12,17 +12,17 @@
                     @if (auth()->user()->role_as === 'admin')
                         <li class="nav-label">Gestion des utilisateurs</li>
                         <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                    class="icon icon-world-2"></i><span class="nav-text">Utilisateurs</span></a>
+                                    class="icon icon-single-04"></i><span class="nav-text">Utilisateurs</span></a>
                             <ul aria-expanded="false">
                                 <li><a href="{{route('users.create')}}">Ajouter</a></li>
-                                <li><a href="{{route('users.index')}}">Liste des unliasteurs</a></li>
+                                <li><a href="{{route('users.index')}}">Liste des utilisateurs</a></li>
                             </ul>
                         </li>
                     @endif
 
-                    <li class="nav-label">Apps</li>
+                    <li class="nav-label">Gestion des factures</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Clients</span></a>
+                                class="icon icon-single-04"></i><span class="nav-text">Clients</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{route('client.create')}}">Ajouter</a></li>
                             <li><a href="{{route('client.index')}}">Listes des clients</a></li>
@@ -34,7 +34,7 @@
                             <li><a href="{{route('facture.create')}}">Ajouter</a></li>
                             <li><a href="{{route('facture.index')}}">Liste des factures</a></li>
                             <!-- <li><a href="{{route('facture.proforma')}}">Présidence</a></li>-->
-                             <li><a href="{{route('facture.particulier')}}">Particulier</a></li>
+                             <!-- <li><a href="{{route('facture.particulier')}}">Particulier</a></li> -->
                         </ul>
                     </li>
                     <!-- <li class="nav-label">Components</li>

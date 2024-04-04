@@ -109,7 +109,7 @@
                                             </span>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group col-md-6">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
@@ -122,11 +122,11 @@
                                         </div>
                                     </div>
                                     <div class="row" id="particulierF" hidden>
-                                       <div class="form-group col-md-6">
+                                        <div class="form-group col-md-6">
                                             <label class="editeur_id">Editeur</label>
                                             <select class="form-control @error('editeur_id') is-invalid @enderror"
                                                 name="editeur_id" placeholder="Nom" value="{{ old('editeur_id')}}">
-                                                <option selected disabled value>Selectionner...</option>
+                                                <option selected disabled value>Selectionner le client...</option>
                                                 @foreach ($editeurs as $editeur)
                                                 <option value="{{ $editeur->id }}">{{ $editeur->libelle }}</option>
                                                 @endforeach
@@ -171,8 +171,8 @@
                                             </span>
                                             @enderror -->
                                         </div>
-                                       
-                                        <div class="form-group col-md-6">
+
+                                        <div class="form-group col-md-12">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
                                                 name="date" value="{{ old('date')}}">
@@ -271,82 +271,82 @@
                                         </div>
                                     </div>
 
-                                <!-- </div> -->
-                                <div class="form-group col-md-12">
-                                            <div class="box-body">
-                                                <div id="devis__item"></div>
-                                                <div class="d-flex justify-content-center m-4">
-                                                    <!-- <div class=""> -->
-                                                    <button type="button"
-                                                        class="btn btn-outline-info add__devis__btn fs-4">
-                                                        Ajouter un devis <span class="fa-solid fa-plus-circle"></span>
-                                                    </button>
-                                                    <!-- </div> -->
-                                                </div>
+                                    <!-- </div> -->
+                                    <div class="form-group col-md-12">
+                                        <div class="box-body">
+                                            <div id="devis__item"></div>
+                                            <div class="d-flex justify-content-center m-4">
+                                                <!-- <div class=""> -->
+                                                <button type="button" class="btn btn-outline-info add__devis__btn fs-4">
+                                                    Ajouter un devis <span class="fa-solid fa-plus-circle"></span>
+                                                </button>
+
                                             </div>
                                         </div>
-                                        <div id="items__facture"></div>
-                                        <div class="form-group col-md-3">
-                                                <div class="mb-3">
-                                                <label class="form-label ">Montant HT</label> 
-                                                    <input type="number" name="montant_HT" class="form-control"
-                                                        id="subtotal" placeholder="Montant HT" readonly value="0">
-                                                </div>
-                                            </div>
-                                      
-                                    <!-- </div> -->
-                                                <div class="form-group col-md-3">    
-                                                        <div class="">
-                                                            <label class="form-label ">Taxe</label>
-                                                            <select class="form-control taxe-select" name="taxes">
-                                                                <option selected value="" data-value="0">Taxe</option>
-                                                                    <option value="18" data-value="18%">18%
-                                                                    </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <div class="">
-                                                            <label for="form-label">Montant TVA</label>
-                                                            <input type="number" class="form-control taxe" id="taxe" name="TVA"
-                                                                placeholder="" disabled placeholder="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                       <label class="remise">Remise</label>
-                                                    <input type="number" class="form-control remiseF"
-                                                        name="remise" placeholder="Remise" value="0">
-                                                    </div>
-
-                                        <div class="form-group col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Montant total</label>
-                                                    <input type="number" class="form-control" name="montant_net"
-                                                        id="total" placeholder="Montant Total" readonly value="0">
-                                                </div>
-                                             </div>
-                                            <div class="form-group col-md-6">
-                                            <div class="">
-                                            <label class="form-label">Montant total en lettre</label>
-                                                    <input type="text" class="form-control" placeholder="Montant total en lettre" required name="montant_lettre">
-                                                </div>
-                                
-                                        </div> 
-                                    <!-- </div> -->
                                     </div>
-                                        
-                                        
-                                        
+                                    <div id="items__facture"></div>
+                                    <div class="form-group col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label ">Montant HT</label>
+                                            <input type="number" name="montant_HT" class="form-control" id="subtotal"
+                                                placeholder="Montant HT" readonly value="0">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group col-md-3">
+                                        <div class="">
+                                            <label class="form-label ">Taxe</label>
+                                            <select class="form-control taxe-select" name="taxes">
+                                                <option selected value="" data-value="0">Taxe</option>
+                                                <option value="18" data-value="18%">18%
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <div class="">
+                                            <label for="form-label">Montant TVA</label>
+                                            <input type="number" class="form-control taxe" id="taxe" name="TVA"
+                                                placeholder="" disabled placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label class="remise">Remise</label>
+                                        <input type="number" class="form-control remiseF" name="remise"
+                                            placeholder="Remise" value="0">
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Montant total</label>
+                                            <input type="number" class="form-control" name="montant_net" id="total"
+                                                placeholder="Montant Total" readonly value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="">
+                                            <label class="form-label">Montant total en lettre</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Montant total en lettre" required name="montant_lettre">
+                                        </div>
+
+                                    </div>
+                                    <!-- </div> -->
                                 </div>
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                </div>
-                            </form>
+
+
+
                         </div>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"

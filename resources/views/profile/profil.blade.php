@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Users</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Utilisateur</a></li>
                             <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
                         </ol>
                     </div>
@@ -36,7 +36,7 @@
                                                 <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                                     <div class="profile-name">
                                                         <h4 class="text-primary">{{ $user->name }}</h4>
-                                                        <p>UX / UI Designer</p>
+                                                        <p>Le responsable du personnel</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
@@ -66,14 +66,14 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="assets/images/avatars/avatar-2.png" alt="Admin"
+                                <img src="assets/images/avatar/admin.jpg" alt="Admin"
                                     class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
                                     <h4>{{ $user->name }}</h4>
-                                    <p class="text-secondary mb-1">Full Stack Developer</p>
-                                    <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                                    <button class="btn btn-primary">Follow</button>
-                                    <button class="btn btn-outline-primary">Message</button>
+                                    <p class="text-secondary mb-1">Responsable du personnel</p>
+                                    <p class="text-muted font-size-sm">de Guma Logistique</p>
+                                    <!-- <button class="btn btn-primary">Follow</button>
+                                    <button class="btn btn-outline-primary">Message</button> -->
                                 </div>
                             </div>
                             {{-- <hr class="my-4" />

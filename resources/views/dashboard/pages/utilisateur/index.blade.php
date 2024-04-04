@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <a href="{{ route('users.create') }}" class="btn btn-primary">Ajouter un client</a>
+            <a href="{{ route('users.create') }}" class="btn btn-primary">Ajouter un utilisateur</a>
             </div>
         </div>
         <!-- row -->
@@ -44,32 +44,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($elements-> as $element)
+                                    @foreach($secretaires as $secretaire)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $element->name }}</td>
-                                        <td>{{ $element->prenom ?? '' }}</td>
-                                        <td>{{ $element->email }}</td>
-                                        <td>{{ $element->contact ?? '' }}</td>
+                                        <td>{{ $secretaire->firstname }}</td>
+                                        <td>{{ $secretaire->lastname }}</td>
+                                        <td>{{ $secretaire->user->email }}</td>
+                                        <td>{{ $secretaire->contact  }}</td>
                                         <td>
-                                            <form action="{{ route('client.delete', $element->id) }}" method="POST">
+                                            <form action="{{ route('users.delete', $secretaire->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <span style="color:black">
-                                                    <a href="{{ route('client.show', $element->id) }}" class="mr-4"
+                                                    <a href="{{ route('users.show', $secretaire->id) }}" class="mr-4 btn btn-primary"
                                                         data-toggle="tooltip" data-placement="top" title="Voir"><i
-                                                            class="fa fa-eye color-muted"></i></a>
-                                                    <a href="{{ route('client.edit', $element->id) }}" class="mr-4"
+                                                            class="fa fa-eye color-muted"></i>Voir</a>
+                                                    <a href="{{ route('users.edit', $secretaire->id) }}" class="mr-4 btn btn-success"
                                                         data-toggle="tooltip" data-placement="top" title="Éditer"><i
-                                                            class="fa fa-pencil color-muted"></i></a>
+                                                            class="fa fa-pencil color-muted"></i>Modifier</a>
                                                     <a href="#"
-                                                        onclick="event.preventDefault(); document.getElementById('delete-client-{{ $element->id }}').submit();"
-                                                        class="btn-delete" data-toggle="tooltip" data-placement="top"
-                                                        title="Supprimer"><i class="fa fa-close color-danger"></i></a>
+                                                        onclick="event.preventDefault(); document.getElementById('delete-users-{{ $secretaire->id }}').submit();"
+                                                        class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                                        title="Supprimer"><i class="fa fa-close color-danger"></i>Supprimer</a>
                                                 </span>
                                             </form>
-                                            <form id="delete-client-{{ $element->id }}"
-                                                action="{{ route('client.delete', $element->id) }}" method="POST"
+                                            <form id="delete-users-{{ $secretaire->id }}"
+                                                action="{{ route('users.delete', $secretaire->id) }}" method="POST"
                                                 style="display: none;">
                                                 @csrf
                                                 @method('DELETE')

@@ -23,12 +23,13 @@
         </div>
         <!-- row -->
         <div class="row">
-
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Liste des factures</h4>
-                        <!-- <a href="{{ route('client.create') }}" class="btn btn-success">Ajouter</a> -->
+                        <!-- @foreach($factures as $facture )
+                        <a href="{{ route('facture.generate-pdf',$facture->id) }}" target="_blank" class="btn btn-primary">Imprimer la facture</a>
+                    @endforeach -->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -62,12 +63,13 @@
                                         <td>{{ $facture->montant_net }}</td>
                                         <td>{{ $facture->date }}</td>
                                         <td>
-                                            <form action="{{ route('facture.delete', $facture->id)}}" method="POST">
+                                            <form action="{{ route('facture.delete', $facture->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <span>
-                                                    <a href="{{ route('facture.generate-pdf',$facture->id)}}" class="mr-4 btn btn-primary m-2"
-                                                        data-toggle="tooltip" target="_blank" data-placement="top" title="Voir"><i
+                                                <a href="{{ route('facture.generate-pdf',$facture->id) }}" target="_blank" class=" mr-4 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Imprimer">Imprimer la facture</a>
+                                                    <a href="{{ route('facture.show',$facture->id)}}" class="mr-4 btn btn-primary m-2"
+                                                        data-toggle="tooltip" data-placement="top" title="Voir"><i
                                                             class=" m-2"></i>Voir</a>
                                                     <a href="{{ route('facture.edit', $facture->id)}}" class="mr-4 btn btn-success  m-2"
                                                         data-toggle="tooltip" data-placement="top" title="Éditer"><i

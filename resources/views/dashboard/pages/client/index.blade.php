@@ -56,14 +56,14 @@
                                                 <span style="color:black">
                                                     <a href="{{ route('client.show', $client->id) }}" class="mr-4 btn btn-primary m-2"
                                                         data-toggle="tooltip" data-placement="top" title="Voir"><i
-                                                            class="fa fa-eye color-muted"></i></a>
+                                                            class="fa fa-eye color-muted"></i>Voir</a>
                                                     <a href="{{ route('client.edit', $client->id) }}" class="mr-4 btn btn-success m-2"
                                                         data-toggle="tooltip" data-placement="top" title="Éditer"><i
-                                                            class="fa fa-pencil color-muted"></i></a>
+                                                            class="fa fa-pencil color-muted"></i>Modifier</a>
                                                     <a href="#"
                                                         onclick="event.preventDefault(); document.getElementById('delete-client-{{ $client->id }}').submit();"
                                                         class="btn btn-danger m-2" data-toggle="tooltip" data-placement="top"
-                                                        title="Supprimer"><i class="fa fa-close color-danger"></i></a>
+                                                        title="Supprimer"><i class="fa fa-close color-danger"></i>Supprimer</a>
                                                 </span>
                                             </form>
                                             <form id="delete-client-{{ $client->id }}"
