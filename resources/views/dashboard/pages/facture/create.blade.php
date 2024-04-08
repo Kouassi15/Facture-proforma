@@ -278,7 +278,7 @@
                                             <div class="d-flex justify-content-center m-4">
                                                 <!-- <div class=""> -->
                                                 <button type="button" class="btn btn-outline-info add__devis__btn fs-4">
-                                                    Ajouter un devis <span class="fa-solid fa-plus-circle"></span>
+                                                    Ajouter un devis <span class="fa fa-plus-circle"></span>
                                                 </button>
 
                                             </div>
@@ -338,7 +338,8 @@
 
 
                         </div>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="submit" class="btn btn-primary m-2">Enregistrer</button>
+                        <a href="{{route('facture.index')}}" class="btn btn-danger m-2">Retour</a>
                     </div>
                     </form>
                 </div>
@@ -508,7 +509,7 @@
                 </div>
                 <div class="col-md-1 mt-4">
                     <button type="button" class="btn btn-primary add__items__btn">
-                        <i class="bx bx-plus" aria-hidden="true">+</i>
+                        <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                 </div>
                 <div class="col-md-2 mt-10"></div>
@@ -589,7 +590,7 @@
                 
                 <div class="col-md-1 mt-3">
                     <button type="button" class="btn btn-danger remove__item__btn">
-                        <i class="bx bx-trash" aria-hidden="true">X</i>
+                        <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>`);

@@ -36,6 +36,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">N°</th>
+                                        <th scope="col">Type clients</th>
                                         <th scope="col">Noms</th>
                                         <th scope="col">Prénoms</th>
                                         <th scope="col">Contacts</th>
@@ -46,6 +47,7 @@
                                     @foreach($clients as $client)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
+                                        <td>{{ $client->typeclient->nom }}</td>
                                         <td>{{ $client->nom }}</td>
                                         <td>{{ $client->prenom }}</td>
                                         <td>{{ $client->contact }}</td>
@@ -53,17 +55,17 @@
                                             <form action="{{ route('client.delete', $client->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <span style="color:black">
-                                                    <a href="{{ route('client.show', $client->id) }}" class="mr-4 btn btn-primary m-2"
+                                                <span style="color:black ;display:flex">
+                                                    <a href="{{ route('client.show', $client->id) }}" class="mr-4 btn btn-primary "
                                                         data-toggle="tooltip" data-placement="top" title="Voir"><i
-                                                            class="fa fa-eye color-muted"></i>Voir</a>
-                                                    <a href="{{ route('client.edit', $client->id) }}" class="mr-4 btn btn-success m-2"
-                                                        data-toggle="tooltip" data-placement="top" title="Éditer"><i
-                                                            class="fa fa-pencil color-muted"></i>Modifier</a>
+                                                            class="fa fa-eye color-muted"></i></a>
+                                                    <a href="{{ route('client.edit', $client->id) }}" class="mr-4 btn btn-success "
+                                                        data-toggle="tooltip" data-placement="top" title="Modifier"><i
+                                                            class="fa fa-pencil color-muted"></i></a>
                                                     <a href="#"
                                                         onclick="event.preventDefault(); document.getElementById('delete-client-{{ $client->id }}').submit();"
-                                                        class="btn btn-danger m-2" data-toggle="tooltip" data-placement="top"
-                                                        title="Supprimer"><i class="fa fa-close color-danger"></i>Supprimer</a>
+                                                        class="btn btn-danger " data-toggle="tooltip" data-placement="top"
+                                                        title="Supprimer"><i class="fa fa-close color-danger"></i></a>
                                                 </span>
                                             </form>
                                             <form id="delete-client-{{ $client->id }}"
@@ -84,4 +86,5 @@
         </div>
     </div>
 </div>
+
 @endsection

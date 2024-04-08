@@ -6,7 +6,7 @@
     <title>FACTURE</title>
 </head>
 
-@if($facture->client->nom == "Ministere de l'environnement")
+@if($facture->client->nom == "Ministère de l'environnement du développement durable et de la transition écologique")
 <body class="bg-image">
     <div>
         <div class="header__section">
@@ -27,6 +27,7 @@
                     @if ($facture->client_id != null) 
                     @endif
                     <h2 style="font-size:60%;">FACTURE PROFORMA : {{ $facture->numero }}</h2>
+                    <!-- <h2 style="font-size:60%;">FACTURE PROFORMA : {{ $facture->code }}</h2> -->
 				    <p style="font-size:60%;">Objet : {{ $facture->objet }}</p>
 				  <p style="font-size:60%;">Immatriculation : {{ $facture->immatriculation }}</p>
                     <p style="font-size:60%;">Marque : {{ $facture->marque }}</p>
@@ -103,7 +104,7 @@
 </body>
 @endif
 
-@if($facture->client->nom == 'Particulier')
+@if($facture->client->typeclient->nom == 'Particulier')
 <body class="bg-image">
     <div>
         <div class="header__section">
@@ -115,7 +116,7 @@
             <div>
 			  <h3 style="text-align: left; color:rgba(3, 9, 16, 0.811); font-weight: bold; text-decoration: underline; font-size:80%">N° Proforma : {{ $facture->numero_proforma }}</h3> 
                 <div>
-                    <h5>Client: {{ $facture->client->nom }}</h5>
+                    <h5>Client: {{ $facture->client->typeclient->nom }}</h5>
                     @if ($facture->client_id != null) 
                     <!-- <h5 style="margin-top: -15px">Contact : {{ $facture->client->contact }}</h5> -->
                     @endif
@@ -124,7 +125,7 @@
                     <p style="font-size:65%;">Marque : {{ $facture->marque }}</p>
                 </div>
                 <div style="float: right;  margin-top: -50px">
-                    <p style="margin-top: -50px">Date : {{ $facture->date }}</p>
+                    <p style="margin-top: -50px; font-size:65%;">Date : {{ $facture->date }}</p>
                 </div>
             </div>
         </div>

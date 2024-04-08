@@ -71,7 +71,8 @@
                                             @enderror
                                             </div>
                                             
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        <button type="submit" class="btn btn-primary m-2">Enregistrer</button>
+                                        <a href="{{route('users.index')}}" class="btn btn-danger m-2">Retour</a>
                                     </form>
                                 </div>
                             </div>

@@ -35,7 +35,19 @@
                                       @csrf
                                       @method('PUT')
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
+                                        @if($client->typeclient->nom == "Ministère de l'environnement du développement durable et de la transition écologique")
+                                        <div class="form-group col-md-6">
+                                                <label class="nom">Nom</label>
+                                                <input type="text" class="form-control" name="nom" value="{{$client->nom}}">
+                                            </div>
+                                        <div class="form-group col-md-6">
+                                                <label class="contact">Contact</label>
+                                                <input type="text" class="form-control" name="contact" value="{{$client->contact}}">
+                                            </div>
+                                        @endif
+
+                                        @if($client->typeclient->nom == "Particulier")
+                                        <div class="form-group col-md-6">
                                                 <label class="nom">Nom</label>
                                                 <input type="text" class="form-control" name="nom" value="{{$client->nom}}">
                                             </div>
@@ -47,8 +59,21 @@
                                                 <label class="contact">Contact</label>
                                                 <input type="text" class="form-control" name="contact" value="{{$client->contact}}">
                                             </div>
-                                            
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        @endif
+
+                                        @if($client->typeclient->nom == "Presidence de republique de cote d'ivoire")
+                                            <div class="form-group col-md-6">
+                                                <label class="nom">Nom</label>
+                                                <input type="text" class="form-control" name="nom" value="{{$client->nom}}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="contact">Contact</label>
+                                                <input type="text" class="form-control" name="contact" value="{{$client->contact}}">
+                                            </div>
+                                        @endif
+                                             
+                                        <button type="submit" class="btn btn-primary m-2">Enregistrer</button>
+                                        <a href="{{route('client.index')}}" class="btn btn-danger m-2">Retour</a>
                                     </form>
                                 </div>
                             </div>

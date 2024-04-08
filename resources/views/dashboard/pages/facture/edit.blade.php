@@ -31,25 +31,8 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-row">
-                                    <!-- <div class="form-group col-md-12">
-                                        <label class="
-                                        
-                                        _id">Client</label>
-                                        <select class="form-control @error('client_id') is-invalid @enderror"
-                                            id="selectRole" name="client_id" placeholder="Nom" value="{{ old('client_id')}}">
-                                            <option selected disabled value>Selectionner...</option>
-                                            @foreach ($clients as $client)
-                                            <option value="{{ $client->id }}" {{ $client->id ? 'selected' : '' }}>{{
-                                                $client->nom }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('client_id')
-                                        <span class="invalid-feedback mb-3" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div> -->
-                                    @if($facture->client->nom == "Ministere de l'environnement")
+                                    
+                                    @if($facture->client->typeclient->nom == "Ministère de l'environnement du développement durable et de la transition écologique")
                                     <div class="row ">
                                         <div class="form-group col-md-6">
                                             <label class="editeur_id">Editeur</label>
@@ -90,7 +73,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="immatriculation">Immatriculation</label>
+                                            <label class="immatriculation">Immatriculation du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('immatriculation') is-invalid @enderror"
                                                 name="immatriculation" placeholder="Immatriculation"
@@ -103,7 +86,7 @@
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label class="marque">Marque</label>
+                                            <label class="marque">Marque du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('marque') is-invalid @enderror" name="marque"
                                                 placeholder="Marque" value="{{ $facture->marque}}">
@@ -125,7 +108,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if($facture->client->nom == 'Particulier')
+                                    @if($facture->client->typeclient->nom == 'Particulier')
                                     <div class="row ">
                                         <div class="form-group col-md-6">
                                             <label class="editeur_id">Editeur</label>
@@ -155,7 +138,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="immatriculation">Immatriculation</label>
+                                            <label class="immatriculation">Immatriculation du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('immatriculation') is-invalid @enderror"
                                                 name="immatriculation" placeholder="Immatriculation"
@@ -168,7 +151,7 @@
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label class="marque">Marque</label>
+                                            <label class="marque">Marque du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('marque') is-invalid @enderror" name="marque"
                                                 placeholder="Marque" value="{{ $facture->marque}}">
@@ -178,7 +161,7 @@
                                             </span>
                                             @enderror
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
                                                 name="date" value="{{ $facture->date}}">
@@ -190,7 +173,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if($facture->client->nom == "Presidence de republique de cote d'ivoire")
+                                    @if($facture->client->typeclient->nom == "Presidence de republique de cote d'ivoire")
                                     <div class="row ">
                                         <div class="form-group col-md-6">
                                             <label class="editeur_id">Editeur</label>
@@ -222,7 +205,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="immatriculation">Immatriculation</label>
+                                            <label class="immatriculation">Immatriculation du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('immatriculation') is-invalid @enderror"
                                                 name="immatriculation" placeholder="Immatriculation"
@@ -235,7 +218,7 @@
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label class="marque">Marque</label>
+                                            <label class="marque">Marque du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('marque') is-invalid @enderror" name="marque"
                                                 placeholder="Marque" value="{{ $facture->marque}}">
@@ -311,7 +294,7 @@
                                                             class="form-control @error('designation') is-invalid @enderror"
                                                             id="designation" placeholder="Désignation"
                                                             name="designation[]"
-                                                            value="{{ old('designation') ?? $element->designation }}"
+                                                            value="{{ old('designation[]') ?? $element->designation }}"
                                                             required>
                                                         @error('designation')
                                                         <span class="invalid-feedback" role="alert">
@@ -325,7 +308,7 @@
                                                         <input type="number"
                                                             class="form-control @error('quantite') is-invalid @enderror"
                                                             id="quantite" placeholder="Quantité" name="quantite[]"
-                                                            value="{{ old('quantite') ?? $element->quantite }}"
+                                                            value="{{ old('quantite[]') ?? $element->quantite }}"
                                                             required>
                                                         @error('quantite')
                                                         <span class="invalid-feedback" role="alert">
@@ -340,7 +323,7 @@
                                                             class="form-control @error('prix_unit') is-invalid @enderror"
                                                             id="prix_unit" placeholder="Prix Unitaire"
                                                             name="prix_unit[]"
-                                                            value="{{ old('prix_unit') ?? $element->prix_unit}}"
+                                                            value="{{ old('prix_unit[]') ?? $element->prix_unit}}"
                                                             required>
                                                         @error('prix_unit')
                                                         <span class="invalid-feedback" role="alert">
@@ -355,7 +338,7 @@
                                                             class="form-control @error('montant_total') is-invalid @enderror"
                                                             id="montant_total" placeholder="Montant total"
                                                             name="montant_total[]"
-                                                            value="{{ old('montant_total') ?? $element->montant_total}}"
+                                                            value="{{ old('montant_total[]') ?? $element->montant_total}}"
                                                             required>
                                                         @error('prix_unit')
                                                         <span class="invalid-feedback" role="alert">
@@ -438,9 +421,10 @@
                                                 </div>
                                          </div> 
                                         
-                                         <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                         <button type="submit" class="btn btn-primary m-2">Enregistrer</button>
+                                         <a href="{{route('facture.index')}}" class="btn btn-danger m-2">Retour</a>
                                     </div>
-                                                    </div>  
+                                </div>  
                             </form>
                         </div>
                     </div>
@@ -662,7 +646,7 @@
             closestRenovationSection.append(`<div id="${uniqueId}" class="row">
                 <div class="col-md-5">
                     <label for="designation" class="form-label fw-bold">Désignation</label>
-                    <input type="text" class="form-control @error('designation[]') is-invalid @enderror" id="designation" placeholder="Désignation" name="designation${idTitle}[]" value="{{ old('designation') }}" required>
+                    <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" placeholder="Désignation" name="designation${idTitle}[]" value="{{ old('designation[]') }}" required>
                     @error('designation')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -671,7 +655,7 @@
                 </div>
                 <div class="col-md-2">
                  <label for="quantite" class="form-label">Quantitée(s)</label>
-                 <input type="number" class="form-control quantite @error('quantite[]') is-invalid @enderror" name="quantite${idTitle}[]" placeolder="Quantitée(s)" value="{{ old('quantite[$loop->index]') }}">
+                 <input type="number" class="form-control quantite @error('quantite') is-invalid @enderror" name="quantite${idTitle}[]" placeolder="Quantitée(s)" value="{{ old('quantite[$loop->index]') }}">
                     @error('quantite')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -680,7 +664,7 @@
                 </div>
                 <div class="col-md-3">
                  <label for="prix_unit" class="form-label">Prix unitaire</label>
-                 <input type="number" class="form-control prix @error('prix_unit[]') is-invalid @enderror" name="prix_unit${idTitle}[]" placeholder="Prix unitaire" name="prix_unit[]" value="{{ old('prix_unit[$loop->index]') }}">
+                 <input type="number" class="form-control prix @error('prix_unit') is-invalid @enderror" name="prix_unit${idTitle}[]" placeholder="Prix unitaire" name="prix_unit[]" value="{{ old('prix_unit[$loop->index]') }}">
                     @error('prix_unit')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

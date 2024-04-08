@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Typeclient;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -12,8 +13,9 @@ class ClientController extends Controller
      */
     public function index()
     {
+        $typeclients = Typeclient::all();
         $clients = Client::all();
-        return view('dashboard.pages.client.index', compact('clients'));
+        return view('dashboard.pages.client.index', compact('clients','typeclients'));
     }
 
     /**
@@ -21,7 +23,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('dashboard.pages.client.create');
+        $typeclients = Typeclient::all();
+        return view('dashboard.pages.client.create',compact('typeclients'));
     }
 
     /**
@@ -30,13 +33,15 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-         'nom' => 'required',
-         'prenom' => 'required',
-         'contact' => 'required',
+         'typeclient_id' => 'required',
+         'nom' => 'required_if:typeclient_id,particulier,ministere,presidence|string|max:255',
+         'prenom' => 'required_if:typeclient_id,particulier|string|max:255',
+         'contact' => 'required_if:typeclient_id,ministere,presidence|string|max:255',
 
         ]);
 
         $client = new Client();
+        $client->typeclient_id = $request->typeclient_id;
         $client->nom = $request->nom;
         $client->prenom = $request->prenom;
         $client->contact = $request->contact;
@@ -72,7 +77,7 @@ class ClientController extends Controller
         $request->validate([
             'nom' => 'required|string|min:3',
             'prenom' => 'required|string|min:3',
-            'contact' => 'required|numeric|min:8', // Changer 'integer' à 'numeric'
+            'contact' => 'required_if:typeclient_id,ministere,presidence|string|max:255',        
         ], 
         $messages = [
             'required' => 'Ce champ est obligatoire.',

@@ -17,8 +17,9 @@ class Client extends Model
     { 
         return $this->hasMany(Facture::class, 'facture_id', 'id'); 
     }
-    // public function clients(): HasMany 
-    // { 
-    //     return $this->hasMany(Client::class, 'client_id', 'id'); 
-    // }
+    
+    public function typeclient()
+    {
+        return $this->belongsTo(TypeClient::class, 'typeclient_id');
+    }
 }

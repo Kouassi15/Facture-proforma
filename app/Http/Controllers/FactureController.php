@@ -7,6 +7,7 @@ use App\Models\Devis;
 use App\Models\Client;
 use App\Models\Editeur;
 use App\Models\Facture;
+use App\Models\Typeclient;
 use App\Models\FactureItem;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,6 +20,24 @@ class FactureController extends Controller
      * Display a listing of the resource.
      *
      */
+    private function generatecodeFacture(){
+        $lastFactureNumbers = Facture::max('code');
+    
+        // Si aucun numéro de facture n'est enregistré
+        if (!$lastFactureNumbers) {
+            return '00001';
+        }
+    
+        // Extrait le numéro de la dernière facture
+        $lastNumbers = intval(substr($lastFactureNumbers, 33, 5));
+    
+        // Incrémente le dernier numéro de facture
+        $newNumbers = str_pad($lastNumbers + 1, 5, '0', STR_PAD_LEFT);
+    
+        return $newNumbers;
+    }
+    
+    
     private function codeFacture(){
         $lastFactureNumber = Facture::max('numero_proforma');
     
@@ -49,45 +68,6 @@ class FactureController extends Controller
         return view('dashboard.pages.facture.proforma.presidence',compact('clients','editeurs'));
      }
 
-     public function qteUpdate(Request $request,$qteId){
-
-        $quantite = $request->quantite;
-        $update = Factureitem::update($qteId,$quantite);
-         
-        //  $notification = array(
-        //     'message' => 'Panier modifié avec succès !',
-        //     'alert-type' => 'success'
-        // );
-
-        return redirect()->back('facture.edit',$factureitem->id)->with();
-     }
-
-     public function prixUpdate(Request $request,$prixuId){
-
-        $prix = $request->prix_unit;
-        $update = Factureitem::update($prixuId,$prix);
-         
-        //  $notification = array(
-        //     'message' => 'Prix modifié avec succès !',
-        //     'alert-type' => 'success'
-        // );
-
-        return redirect()->back()->with();
-     }
-
-     public function libelleUpdate(Request $request,$libelleId){
-
-        $libelle = $request->designation;
-        $update = Factureitem::update($libelleId,$libelle);
-         
-        //  $notification = array(
-        //     'message' => 'Designation modifié avec succès !',
-        //     'alert-type' => 'success'
-        // );
-
-        return redirect()->back()->with();
-     }
-
     public function index()
     {
          $factures = Facture::all();
@@ -101,9 +81,9 @@ class FactureController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
+        $clients = Typeclient::all();
         $editeurs = Editeur::all();
-        // dd($clients);
+       
         return view('dashboard.pages.facture.create', compact('clients','editeurs'));
     }
 
@@ -145,7 +125,6 @@ class FactureController extends Controller
             "designation" . ($i + 1) => 'required|array',
             "quantite" . ($i + 1) => 'required|array',
             "prix_unit" . ($i + 1) => 'required|array',
-            //  "montant_total" . ($i + 1) => 'required|array',
             
         ]);
 
@@ -154,6 +133,7 @@ class FactureController extends Controller
 
     $facture = new Facture();
     $facture->numero_proforma = $this->codeFacture();
+    $facture->code = $this->generatecodeFacture(); 
     $facture->client_id = $request->client_id;
     $facture->editeur_id = $request->editeur_id;
     $facture->numero = $request->numero;
@@ -221,11 +201,6 @@ class FactureController extends Controller
         $facture->montant_HT = $total_HT;
         $facture->TVA = $TVA ;
         $facture->montant_net = $montant_net;
-    // dd('ok');
-    // Calcul de la TVA en fonction du montant HT et du taux de TVA
-        // $total_HT = $request->montant_HT;
-        // $TVA = $total_HT * ($request->TVA / 100);
-        // $montant_net = $total_HT + $TVA - $remise;
         $facture->save();
     try {
         return redirect()->route('facture.index')->with('success', 'La facture a été enregistrée avec succès');
@@ -583,4 +558,64 @@ class FactureController extends Controller
 
         return redirect()->route('facture.index')->with('Succes', 'La facture à été supprimé');
     }
+
+
+    public function generatefacturePDF($id)
+    {
+        // $data = ['facture' => Facture::findOrFail($id)];
+        // $pdf = PDF::loadView('dashboard.pages.facture.pdf.devis', $data);
+        // return $pdf->download('document.pdf');
+        // $facture = Facture::all();
+        $pdf =  Pdf::loadView('dashboard.pages.facture.pdf.devis2', ['facture' => Facture::findOrFail($id)]);
+        $pdf->setPaper('A4', 'portrait')->render();
+
+        $response = new Response();
+        $response->setContent($pdf->output())->header('Content-Type', 'application/pdf');
+        $response->header('Content-Disposition', "inline; filename=$id-" . date('dmY') . ".pdf");
+
+        return $response;
+    }
+
+    public function historique()
+    {
+        $clients = Client::all();
+        $factures = Facture::get();
+        return view('dashboard.pages.facture.historique',compact('factures','clients'));
+    }
+
+    public function search(Request $request)
+    {
+        $clients = Client::all();
+        $client_id = $request->client_id;
+        $numero_proforma = $request->numero_proforma;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $factures = Facture::query();
+
+        // Filtrer par client_id si celui-ci est renseigné
+        if ($client_id) {
+            $factures->where('client_id', $client_id);
+        }
+
+        // Filtrer par numéro de proforma si celui-ci est renseigné
+        if ($numero_proforma) {
+            $factures->where('numero_proforma', $numero_proforma);
+        }
+
+        // Filtrer par date de début et/ou de fin si renseignées
+        if ($start_date) {
+            $factures->whereDate('date', '>=', $start_date);
+        }
+
+        if ($end_date) {
+            $factures->whereDate('date', '<=', $end_date);
+        }
+
+        // Récupérer les résultats
+        $factures = $factures->get();
+
+        return view('dashboard.pages.facture.historique', compact('factures','clients'));
+    }
+
 }

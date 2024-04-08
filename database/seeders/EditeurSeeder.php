@@ -14,9 +14,9 @@ class EditeurSeeder extends Seeder
     public function run(): void
     {
         $editeurs =[
+            "Adama Batili",
             "Guma Logistique",
             "Guma Logistique Immobilier",
-            "Adama Batili",
         ];
 
         foreach ($editeurs as $key => $editeur){

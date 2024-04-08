@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('client_id')->nullable();
             $table->string('numero')->nullable();
             $table->string('numero_proforma')->nullable();
+            $table->string('code')->nullable();
             $table->string('objet')->nullable();
             $table->string('montant_HT')->nullable();
             $table->string('TVA')->nullable();

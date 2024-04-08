@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('historiques', function (Blueprint $table) {
             $table->id();
-            $table->integer('typeclient_id')->nullable();
-            $table->string('nom')->nullable();
-            $table->string('prenom')->nullable();;
-            $table->string('contact')->nullable();;
+            $table->foreignId('client_id') ->constrained();   
+            $table->foreignId('facture_id')->constrained();   
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('historiques');
     }
 };

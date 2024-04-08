@@ -65,6 +65,11 @@
 @import url(./../vendor/perfect-scrollbar/css/perfect-scrollbar.css);
 @import url(./../vendor/metismenu/css/metisMenu.min.css);
 
+.box{
+  width: 10%;
+  height: 10%;
+}
+
 .content-body {
   background-image: url("./../../assets/images/1.jpg");
   background-repeat: no-repeat;

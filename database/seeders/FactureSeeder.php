@@ -18,6 +18,7 @@ class FactureSeeder extends Seeder
         if(count($factures) == 0 ){
             $factures = Facture::create([
                 'numero_proforma' => 'BATN°0001 AN 2024'.count($factures),
+                'code' => ' 00001'.count($factures),
                 'client_id' => 1,
                 'editeur_id' =>1,
                 'numero' => 'N°00126 AN 2024',
@@ -30,6 +31,7 @@ class FactureSeeder extends Seeder
                 'taxes'=> '18%',
                 'remise' => 0,
                 'montant_net' => 500000 + 90000,
+                'montant_lettre' => 'CINQ CENT QUATRE VINGT DIX MILLE Fancs CFA'
             ]);
         }
     }

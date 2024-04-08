@@ -73,6 +73,7 @@
                                             </div>
                                             
                                         <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        <a href="{{route('utilisateur.index')}}" class="btn btn-danger m-2">Retour</a>
                                     </form>
                                 </div>
                             </div>
