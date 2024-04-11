@@ -44,7 +44,7 @@
                                     <i class="ti-user text-primary border-primary"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">Clients</div>
+                                    <div class="stat-text">Nombres des clients</div>
                                     <div class="stat-digit">{{$clients}}</div>
                                 </div>
                             </div>

@@ -81,7 +81,7 @@ class FactureController extends Controller
      */
     public function create()
     {
-        $clients = Typeclient::all();
+        $clients = Client::all();
         $editeurs = Editeur::all();
        
         return view('dashboard.pages.facture.create', compact('clients','editeurs'));
@@ -562,10 +562,7 @@ class FactureController extends Controller
 
     public function generatefacturePDF($id)
     {
-        // $data = ['facture' => Facture::findOrFail($id)];
-        // $pdf = PDF::loadView('dashboard.pages.facture.pdf.devis', $data);
-        // return $pdf->download('document.pdf');
-        // $facture = Facture::all();
+        $facture = Facture::find($id);
         $pdf =  Pdf::loadView('dashboard.pages.facture.pdf.devis2', ['facture' => Facture::findOrFail($id)]);
         $pdf->setPaper('A4', 'portrait')->render();
 
@@ -579,7 +576,7 @@ class FactureController extends Controller
     public function historique()
     {
         $clients = Client::all();
-        $factures = Facture::get();
+        $factures = Facture::with('client')->get();
         return view('dashboard.pages.facture.historique',compact('factures','clients'));
     }
 

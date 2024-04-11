@@ -14,13 +14,13 @@
                 <h1>{{$facture->editeur->libelle}}</h1>
                 <h5 style="color: rgba( 0, 0, 0, 1 ); font-weight: bold; margin-top: -10px; text-align: center; font-size:8px;">Siège: II Plateaux Tél:00225 22415280/ Cél:00225 07522642 / Email:gumalogistique@gmail.com<br/> FOURNITURES DE BUREAUX-MATERIEL ET INFORMATUQUE - ENTRETIEN ET REPARATION VEHICULES - TRAVAUX DE BATIMENT & DIVERS - MATERIEL AGRICOLE & ENGIENS - REPROFILAGE DES ROUTES - ETUDES ET FORMATION</h5> 
             </div>
-            <hr>
+            <hr style="margin-bottom : 20px;">
 
             <div>
                 <div>
                     <div class="section-content">
-                   <div style="float: right;margin-top : -5px; font-size:65%;">
-                    <p>Abidjan. Le {{ date('d/m/Y') }}. </p>
+                   <div style="margin-top : -2px; font-size:65%; text-align :center ">
+                    <p >Abidjan. Le {{ date('d/m/Y') }}. </p>
 				 </div>
 			     </div>
 				  <h5>Client: {{ $facture->client->nom }}</h5>
@@ -41,10 +41,10 @@
             <table class="table table-striped table-hover" style="border: none">
                 <thead style="border-radius: 5px">
                     <tr style="background-color: rgb(45, 143, 219); color: white; font-size:65%; height:10px">
-                        <th width="60%">Designations</th>
+                        <th width="60%" colspan="3">Designations</th>
                         <th>Quantités</th>
                         <th>Prix unitaire</th>
-                         <th colspan="2">Total HT</th>
+                         <th >Total HT</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,10 +55,10 @@
                             </tr>
                         @foreach ($item->factureitem as $key => $element) 
                             <tr style="margin-top: 5px; font-size:65%;" >
-                                <td width="60%">{{ $element->designation }} </td>
+                                <td width="80%" colspan="3">{{ $element->designation }} </td>
                                 <td width="10%">{{ $element->quantite }}</td>
                                 <td width="13%">{{ number_format($element->prix_unit, 0, ',', ' ') }}</td>
-                                <td colspan="2">{{ number_format($element->montant_total, 0, ',', ' ') }}</td>
+                                <td >{{ number_format($element->montant_total, 0, ',', ' ') }}</td>
                             </tr>
                             
                         @endforeach
@@ -66,20 +66,20 @@
                     @endforeach
                     <br/>
                     <tr style="font-size:65%;">
-                        <td style="color: rgb(190, 7, 40); font-weight: bold;" colspan="4">Net à Payer HT</td>
+                        <td style="color: rgb(190, 7, 40); font-weight: bold;" colspan="5">Net à Payer HT</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->montant_HT, 0, ',', ' ') }}</td>
                     </tr>
                    
                     <tr style="font-size:65%;">
-                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="4">TVA 18%</td>
+                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="5">TVA 18%</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->TVA, 0, ',', ' ') }}</td>
                     </tr>
                     <tr style="font-size:65%;">
-                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="4"> NET à Payer TTC</td>
+                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="5"> NET à Payer TTC</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->montant_net, 0, ',', ' ') }}</td>
                     </tr>
                     <tr style="font-size:65%;">
-					 <td style="margin-bottom: 0px; font-weight: bold" colspan="5">Arrêtée la presente Facture Proforma à la Somme de:<br>{{ $facture->montant_lettre}}</td>
+					 <td style="margin-bottom: 0px; font-weight: bold" colspan="6">Arrêtée la presente Facture Proforma à la Somme de:<br>{{ $facture->montant_lettre}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -116,7 +116,7 @@
             <div>
 			  <h3 style="text-align: left; color:rgba(3, 9, 16, 0.811); font-weight: bold; text-decoration: underline; font-size:80%">N° Proforma : {{ $facture->numero_proforma }}</h3> 
                 <div>
-                    <h5>Client: {{ $facture->client->typeclient->nom }}</h5>
+                    <h5>Client: {{ $facture->client->nom }} {{ $facture->client->prenom }}</h5>
                     @if ($facture->client_id != null) 
                     <!-- <h5 style="margin-top: -15px">Contact : {{ $facture->client->contact }}</h5> -->
                     @endif
@@ -134,10 +134,10 @@
             <table class="table table-striped table-hover" style="border: none">
                 <thead style="border-radius: 5px">
                     <tr style="background-color: rgb(45, 143, 219); color: white; font-size:65%; height:5px">
-                        <th width="50%">Designations</th>
+                        <th width="60%" colspan="3">Designations</th>
                         <th>Quantitée(e)</th>
                         <th>Prix unitaire</th>
-                         <th colspan="2">Total HT</th>
+                         <th>Total HT</th>
                         
                     </tr>
                 </thead>
@@ -146,29 +146,29 @@
                     
                         @foreach ($item->factureitem as $key => $element) 
                             <tr style="margin-top: 10px; font-size:65%">
-                                <td width="60%">{{ $element->designation }} </td>
+                                <td width="60%" colspan="3">{{ $element->designation }} </td>
                                 <td width="10%">{{ $element->quantite }}</td>
-                                <td width="15%">{{ number_format($element->prix_unit, 0, ',', ' ') }}</td>
-                                <td colspan="2">{{ number_format($element->montant_total, 0, ',', ' ') }}</td>
+                                <td width="13%">{{ number_format($element->prix_unit, 0, ',', ' ') }}</td>
+                                <td>{{ number_format($element->montant_total, 0, ',', ' ') }}</td>
                             </tr>
                         @endforeach
                         <br/>
                     @endforeach
                     <br/>
                     <tr style="font-size:65%;">
-                        <td style="color: rgb(190, 7, 40);  font-weight: bold" colspan="4">MONTANT HT</td>
+                        <td style="color: rgb(190, 7, 40);  font-weight: bold" colspan="5">MONTANT HT</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->montant_HT, 0, ',', ' ') }}</td>
                     </tr>
                     <tr style="font-size:65%;">
-                        <td style="color: rgb(190, 7, 40);  font-weight: bold" colspan="4">TVA 18%</td>
+                        <td style="color: rgb(190, 7, 40);  font-weight: bold" colspan="5">TVA 18%</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->TVA, 0, ',', ' ') }}</td>
                     </tr>
                     <tr style="font-size:65%;">
-                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="4">MONTANT NET à Payer TTC</td>
+                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="5">MONTANT NET à Payer TTC</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->montant_net, 0, ',', ' ') }}</td>
                     </tr>
                     <tr style="font-size:65%;">
-					 <td style="margin-bottom: 0px; font-weight: bold" colspan="5">Arrêtée la presente Facture Proforma à la Somme de:<br>{{ $facture->montant_lettre}}</td>
+					 <td style="margin-bottom: 0px; font-weight: bold" colspan="6">Arrêtée la presente Facture Proforma à la Somme de:<br>{{ $facture->montant_lettre}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -220,20 +220,20 @@
             <table class="table table-striped table-hover" style="border: none">
                 <thead style="border-radius: 5%">
                     <tr style="background-color: rgb(45, 143, 219); color: white;font-size:65%; height:5px">
-                    <th colspan="6"style="text-align: center">Châssis</th>
+                    <th colspan="7"style="text-align: center">Châssis</th>
                     </tr>
 				    @foreach ($facture->devis as $item)
 				  <tr style="font-size:65%">
 					<td><u>Incidents</u>:<br> {{ isset($facture->incident) ? $facture->incident : '' }}</td>
-					<td colspan="5"><u>Commentaires</u>:<br> {{ isset($facture->commentaire) ? $facture->commentaire : '' }}</td>
+					<td colspan="6"><u>Commentaires</u>:<br> {{ isset($facture->commentaire) ? $facture->commentaire : '' }}</td>
 				  </tr>
 				   @endforeach
                     <tr style="background-color: rgb(45, 143, 219); color: white; font-size:65%; height:5px">
-                        <th width="50%">Designations</th>
+                        <th width="60%" colspan="3">Designations</th>
                         <th >Quantités</th>
                         <th>Remise(%)</th>
                         <th >Prix unitaire</th>
-                         <th colspan="2">Total HT (FCFA)</th>
+                         <th >Total HT (FCFA)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -243,31 +243,31 @@
                         @foreach ($item->factureitem as $key => $element) 
                              
                             <tr style="margin-top: 2px; font-size:50%">
-                                <td width="55%">{{ $element->designation }} </td>
+                                <td width="80%" colspan="3">{{ $element->designation }} </td>
                                 <td width="5%">{{ $element->quantite }}</td>
 							    <td width="5%">{{ number_format($element->remise, 0, ',', ' ') }}</td>
                                 <td width="12%">{{ number_format($element->prix_unit, 0, ',', ' ') }}</td>
-                                <td colspan="2">{{ number_format($element->montant_total, 0, ',', ' ') }}</td>
+                                <td>{{ number_format($element->montant_total, 0, ',', ' ') }}</td>
                             </tr>
                         @endforeach
                         <br/>
                       @endforeach
                     <tr style="font-size:65%;">
-                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="5">TOTAL HT</td>
+                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="6">TOTAL HT</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold;">{{ number_format($facture->montant_HT, 0, ',', ' ') }}</td>
                     </tr>
                     
                     <tr style="white;font-size:65%;">
-                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="5">REMISE</td>
+                        <td style="color: rgb(190, 7, 40); font-weight: bold" colspan="6">REMISE</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->remise, 0, ',', ' ') }}</td>
                     </tr>
                    
                     <tr style="white;font-size:65%;">
-                        <td style="color: rgb(190, 7, 40);  font-weight: bold" colspan="5">TVA 18%</td>
+                        <td style="color: rgb(190, 7, 40);  font-weight: bold" colspan="6">TVA 18%</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->TVA, 0, ',', ' ') }}</td>
                     </tr>
                     <tr style="white;font-size:65%;">
-                        <td style="color: rgb(190, 7, 40);  font-weight: bold" colspan="5">MONTANT NET à Payer TTC</td>
+                        <td style="color: rgb(190, 7, 40);  font-weight: bold" colspan="6">MONTANT NET à Payer TTC</td>
                         <td style="color: rgb(190, 7, 40); vertical-align: middle; font-weight: bold">{{ number_format($facture->montant_net, 0, ',', ' ') }}</td>
                     </tr>
                     <tr style="white;font-size:65%;">

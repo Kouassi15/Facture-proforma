@@ -15,8 +15,8 @@ class TypeclientSeeder extends Seeder
     {
         $typeclients =[
             "Ministère de l'environnement du développement durable et de la transition écologique",
-            "Particulier",
             "Presidence de republique de cote d'ivoire",
+            "Particulier",
         ];
 
         foreach ($typeclients as $key => $typeclient){

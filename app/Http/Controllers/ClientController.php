@@ -75,9 +75,9 @@ class ClientController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nom' => 'required|string|min:3',
-            'prenom' => 'required|string|min:3',
-            'contact' => 'required_if:typeclient_id,ministere,presidence|string|max:255',        
+            'nom' => 'required_if:typeclient_id,particulier,ministere,presidence|string|min:3',
+            'prenom' => 'required_if:typeclient_id,particulier|string|min:3',
+            'contact' => 'required_if:typeclient_id,ministere,presidence|max:255',        
         ], 
         $messages = [
             'required' => 'Ce champ est obligatoire.',

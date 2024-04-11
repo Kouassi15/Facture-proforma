@@ -35,14 +35,14 @@
                                     <tr>
                                         <th scope="col">N°</th>
                                         <th scope="col">Nom client</th>
-                                        <th scope="col">N° facture</th>
-                                        <th scope="col">N° proforam</th>
+                                        <th width="110px">N° facture</th>
+                                        <th width="120px">N° proforma</th>
                                         <th scope="col">Objet</th>
-                                        <th scope="col">Montant HT</th>
+                                        <th width="120px">Montant HT</th>
                                         <th scope="col">TVA</th>
                                         <th scope="col">Remise</th>
-                                        <th scope="col">Montant net</th>
-                                        <th scope="col">Date</th>
+                                        <th width="120px">Montant net</th>
+                                        <th width="100px">Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -50,7 +50,7 @@
                                     @foreach($factures as $facture )
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $facture->client->nom }}</td>
+                                        <td>{{ $facture->client->nom ?? null }}</td>
                                         <td>{{ $facture->numero }}</td>
                                         <td>{{ $facture->numero_proforma }}</td>
                                         <td>{{ $facture->objet }}</td>

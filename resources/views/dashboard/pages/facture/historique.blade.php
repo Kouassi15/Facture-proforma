@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <a href="{{ route('facture.create') }}" class="btn btn-primary">Ajouter une facture</a>
+            <a href="{{ route('facture.index') }}" class="btn btn-danger">Retour</a>
             </div>
         </div>
         <!-- row -->
@@ -66,22 +66,22 @@
                                     <tr>
                                         <th scope="col">N°</th>
                                         <th scope="col">Nom client</th>
-                                        <th scope="col">N° facture</th>
-                                        <th scope="col">N° proforam</th>
+                                        <th width="110px">N° facture</th>
+                                        <th width="120px">N° proforma</th>
                                         <th scope="col">Objet</th>
-                                        <th scope="col">Montant HT</th>
+                                        <th width="110px">Montant HT</th>
                                         <th scope="col">TVA</th>
                                         <th scope="col">Remise</th>
-                                        <th scope="col">Montant net</th>
-                                        <th width="20px">Date</th>
-                                        <!-- <th scope="col">Action</th> -->
+                                        <th width="120px">Montant net</th>
+                                        <th width="100px">Date </th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($factures as $facture )
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $facture->client->nom }}</td>
+                                        <td>{{ $facture->client->nom ?? null }}</td>
                                         <td>{{ $facture->numero }}</td>
                                         <td>{{ $facture->numero_proforma }}</td>
                                         <td >{{ $facture->objet }}</td>
@@ -90,7 +90,7 @@
                                         <td>{{ $facture->remise }}</td>
                                         <td>{{ $facture->montant_net }}</td>
                                         <td>{{ $facture->date }}</td>
-                                        <!-- <td>
+                                         <td>
                                             <form action="{{ route('facture.delete', $facture->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -98,7 +98,7 @@
                                                 <a href="{{ route('facture.show',$facture->id)}}" class="mr-4 btn btn-primary "
                                                         data-toggle="tooltip" data-placement="top" title="Voir"><i
                                                             class="fa fa-eye color muted"></i>Voir</a>
-                                                 <a href="{{ route('facture.generate-pdf',$facture->id) }}" target="_blank" class=" mr-4 btn btn-dark m-2"
+                                                 <!-- <a href="{{ route('facture.generate-pdf',$facture->id) }}" target="_blank" class=" mr-4 btn btn-dark m-2"
                                                  data-toggle="tooltip" data-placement="top" title="Imprimer"><i
                                                             class=""></i>Imprimer facture</a>
                                                     <a href="{{ route('facture.edit', $facture->id)}}" class="mr-4 btn btn-success  m-2"
@@ -116,8 +116,8 @@
                                                 style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
-                                            </form> 
-                                        </td> -->
+                                            </form>  -->
+                                        </td> 
                                     </tr>
                                     @endforeach
                                 </tbody>

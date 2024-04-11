@@ -58,11 +58,11 @@
                                             <div class="form-group col-md-6">
                                                 <label class="contact">Contact</label>
                                                 <input type="number" class="form-control @error('contact') is-invalid @enderror" name="contact" placeholder="Contact" value="{{ old('contact')}}">
-                                                @error('contact')
+                                                <!-- @error('contact')
                                              <span class="invalid-feedback mb-3" role="alert">
                                                 <strong>{{ $message }}</strong>
                                              </span>
-                                             @enderror
+                                             @enderror -->
                                         </div>
 
                                         </div>
@@ -105,11 +105,11 @@
                                         <div class="form-group col-md-6">
                                                 <label class="contact">Contact</label>
                                                 <input type="number" class="form-control @error('contact') is-invalid @enderror" name="contact" placeholder="Contact" value="{{ old('contact')}}">
-                                                @error('contact')
+                                                <!-- @error('contact')
                                              <span class="invalid-feedback mb-3" role="alert">
                                                 <strong>{{ $message }}</strong>
                                              </span>
-                                             @enderror
+                                             @enderror -->
                                            </div>
                                         </div>
                                        </div>
@@ -150,14 +150,14 @@
                     enableAllInputs(ministereDiv);
 
                 } else if (selectedValue === "2") {
-                    particulierDiv.hidden = false;
-                    // Activer tous les éléments de la div sélectionnée
-                    enableAllInputs(particulierDiv);
-                } else if (selectedValue === "3") {
                     presidenceDiv.hidden = false;
                     // Activer tous les éléments de la div sélectionnée
                     enableAllInputs(presidenceDiv);
-                }
+                }else if (selectedValue === "3") {
+                    particulierDiv.hidden = false;
+                    // Activer tous les éléments de la div sélectionnée
+                    enableAllInputs(particulierDiv);
+                } 
             });
             function disableAllInputs(container) {
                 var inputs = container.getElementsByTagName("input");

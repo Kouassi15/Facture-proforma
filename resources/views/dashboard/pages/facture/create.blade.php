@@ -39,6 +39,8 @@
                                             <!-- <option value="ministere">Ministere</option>
                                             <option value="particulier">Particulier</option>
                                             <option value="presidence">Presidence</option> -->
+                                            <!-- <input type="hidden" name="client_id"
+                                            value="" /> -->
                                             @foreach ($clients as $client)
                                             <option value="{{ $client->id }}">{{ $client->nom }}</option>
                                             @endforeach
@@ -87,7 +89,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="immatriculation">Immatriculation</label>
+                                            <label class="immatriculation">Immatriculation du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('immatriculation') is-invalid @enderror"
                                                 name="immatriculation" placeholder="Immatriculation"
@@ -99,7 +101,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="marque">Véhicule</label>
+                                            <label class="marque">Marque du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('marque') is-invalid @enderror" name="marque"
                                                 placeholder="Marque" value="{{ old('marque')}}">
@@ -126,7 +128,7 @@
                                             <label class="editeur_id">Editeur</label>
                                             <select class="form-control @error('editeur_id') is-invalid @enderror"
                                                 name="editeur_id" placeholder="Nom" value="{{ old('editeur_id')}}">
-                                                <option selected disabled value>Selectionner le client...</option>
+                                                <option selected disabled value>Selectionner...</option>
                                                 @foreach ($editeurs as $editeur)
                                                 <option value="{{ $editeur->id }}">{{ $editeur->libelle }}</option>
                                                 @endforeach
@@ -148,7 +150,7 @@
                                             @enderror -->
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="immatriculation">Immatriculation</label>
+                                            <label class="immatriculation">Immatriculation du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('immatriculation') is-invalid @enderror"
                                                 name="immatriculation" placeholder="Immatriculation"
@@ -161,7 +163,7 @@
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label class="marque">Marque</label>
+                                            <label class="marque">Marque du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('marque') is-invalid @enderror" name="marque"
                                                 placeholder="Marque" value="{{ old('marque')}}">
@@ -212,7 +214,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="immatriculation">Immatriculation</label>
+                                            <label class="immatriculation">Immatriculation du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('immatriculation') is-invalid @enderror"
                                                 name="immatriculation" placeholder="Immatriculation"
@@ -225,7 +227,7 @@
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label class="marque">Marque</label>
+                                            <label class="marque">Marque du véhicule</label>
                                             <input type="text"
                                                 class="form-control @error('marque') is-invalid @enderror" name="marque"
                                                 placeholder="Marque" value="{{ old('marque')}}">
@@ -368,13 +370,15 @@
 
             // Masquer toutes les divs
             ministereDiv.hidden = true;
-            particulierDiv.hidden = true;
             presidenceDiv.hidden = true;
+            particulierDiv.hidden = true;
+           
 
             // Désactiver tous les éléments de la div
             disableAllInputs(ministereDiv);
-            disableAllInputs(particulierDiv);
             disableAllInputs(presidenceDiv);
+            disableAllInputs(particulierDiv);
+            
 
             // Afficher la div correspondante
             if (selectedValue === "1") {
@@ -383,14 +387,15 @@
                 enableAllInputs(ministereDiv);
 
             } else if (selectedValue === "2") {
-                particulierDiv.hidden = false;
-                // Activer tous les éléments de la div sélectionnée
-                enableAllInputs(particulierDiv);
-            } else if (selectedValue === "3") {
                 presidenceDiv.hidden = false;
                 // Activer tous les éléments de la div sélectionnée
                 enableAllInputs(presidenceDiv);
+            } else if (selectedValue !== "0"  ) {
+                particulierDiv.hidden = false;
+                // Activer tous les éléments de la div sélectionnée
+                enableAllInputs(particulierDiv)
             }
+
         });
         function disableAllInputs(container) {
             var inputs = container.getElementsByTagName("input");
@@ -434,7 +439,7 @@
             var quantity = parseFloat(row.find('.quantite').val());
             var priceUnit = parseFloat(row.find('.prix').val());
             var itemTotal = quantity * priceUnit;
-            row.find('.montant').val(itemTotal.toFixed(2));
+            row.find('.montant').val(itemTotal.toFixed());
             calculateSubTotal();
             calculateTotal();
         }
@@ -445,7 +450,7 @@
             $('.montant').each(function () {
                 subTotal += parseFloat($(this).val());
             });
-            $('#subtotal').val(subTotal.toFixed(2));
+            $('#subtotal').val(subTotal.toFixed());
             calculateTax();
         }
 
@@ -454,7 +459,7 @@
             var subTotal = parseFloat($('#subtotal').val());
             var taxPercentage = parseFloat($('.taxe-select option:selected').data('value'));
             var taxAmount = (subTotal * taxPercentage) / 100;
-            $('#taxe').val(taxAmount.toFixed(2));
+            $('#taxe').val(taxAmount.toFixed());
             calculateTotal();
         }
 
@@ -464,7 +469,7 @@
             var tax = parseFloat($('#taxe').val());
             var discount = parseFloat($('.remiseF').val());
             var total = subTotal + tax - discount;
-            $('#total').val(total.toFixed(2));
+            $('#total').val(total.toFixed());
         }
 
         // Add item handler

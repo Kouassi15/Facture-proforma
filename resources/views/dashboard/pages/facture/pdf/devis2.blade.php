@@ -23,29 +23,30 @@
 	  <div>
                 <div >
 				  <div class="section-content" >
+                    <h3 style="text-align: center; color:rgba(3, 9, 16, 0.811); font-weight: bold; text-decoration: underline;font-size:100%;">{{ $facture->numero_proforma }}</h3> 
 					  {{-- <div style="float: right;margin-top : -5px; font-size:65%;">
                     <p>Abidjan. Le {{ date('d/m/Y') }}. </p>
 					  </div>--}}
 			     </div>
-				  <h5 style="margin-bottom: 10px; font-size:16px;">GUMA LOGISTIQUE</h5>
+				  {{--<h5 style="margin-bottom: 10px; font-size:16px;">GUMA LOGISTIQUE</h5>
 				  <div style="border:solid;border-radius: 5px; padding-left: 10px; margin-left: 5px 10px;height: 80px; width: 200px;">
                     <h2 style="font-size:70%;">N°CC :2147689 A</h2>
 					<p style="font-size:70%;">Regime d'imposition: TEE</p>
 					<p style="font-size:70%;">Centre des Impôts: Cocody</p>
 				  </div>
-				  <p style="font-size:80%;">FACTURE N°22 314 Y0101 / <span style="font-size:12px; color: red;font-size:16px;"> {{$facture->code}}</span></p>
+				  <p style="font-size:80%;">FACTURE N°22 314 Y0101 / <span style="font-size:12px; color: red;font-size:16px;"> {{$facture->code}}</span></p>--}}
                 </div>
         </div>
        <br />
       <div class="footer">
-      <div class="section-align">
+      {{--<div class="section-align">
 		       <div style="float: left;margin-left : 50px;">
 		         <p>Visa Client </p>
 		       </div>
              <div style="float: right;margin-right : 50px;">
 		         <p>Souche </p>
              </div>
-      </div>
+      </div>--}}
         <hr />
          <p style="font-size:10px"> DOMICILIATION BANCAIRE : BIAO-CI-N° DE COMPTE0223 50252530 / TRESOR N° de compte : A 6500 01001 10267530008 / BNI AGENCE 2 PLATEAUX N° compte:003205010056 
          Siège : II Plateaux- Tél.+225 22415280-Cél+225 07522642 / 07-07-92-31-92 /01 BP2568 Abidjan / E-mail : <a href="mailto:guma1@aviso.ci">guma1@aviso.ci</a></p>
