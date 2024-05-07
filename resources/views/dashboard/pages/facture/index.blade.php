@@ -34,15 +34,15 @@
                                 <thead class="box">
                                     <tr>
                                         <th scope="col">N°</th>
-                                        <th scope="col">Nom client</th>
-                                        <th width="110px">N° facture</th>
-                                        <th width="120px">N° proforma</th>
+                                        <th width="130px">Nom client</th>
+                                        <th width="120px">N° facture</th>
+                                        <th width="130px">N° proforma</th>
                                         <th scope="col">Objet</th>
-                                        <th width="120px">Montant HT</th>
+                                        <th width="130px">Montant HT</th>
                                         <th scope="col">TVA</th>
                                         <th scope="col">Remise</th>
-                                        <th width="120px">Montant net</th>
-                                        <th width="100px">Date</th>
+                                        <th width="130px">Montant net</th>
+                                        <th width="110px">Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>

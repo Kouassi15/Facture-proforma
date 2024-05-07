@@ -172,7 +172,7 @@
                                             @enderror -->
                                         </div>
 
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
                                             <label class="date">Date</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
                                                 name="date" value="{{ old('date')}}">
@@ -271,6 +271,18 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group col-md-12">
+                                        <div class="box-body">
+                                            <div id="items__facture"></div>
+                                            <div class="d-flex justify-content-center m-4">
+                                                <!-- <div class=""> -->
+                                                <button type="button" class="btn btn-outline-info add__facture__btn fs-4">
+                                                    Ajouter une facture <span class="fa-solid fa-plus-circle"></span>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- </div> -->
                                     <div class="form-group col-md-12">
                                         <div class="box-body">
@@ -292,7 +304,6 @@
                                                 placeholder="Montant HT" readonly value="0">
                                         </div>
                                     </div>
-
 
                                     <div class="form-group col-md-3">
                                         <div class="">
@@ -382,13 +393,14 @@
                 enableAllInputs(ministereDiv);
 
             } else if (selectedValue === "2") {
-                particulierDiv.hidden = false;
-                // Activer tous les éléments de la div sélectionnée
-                enableAllInputs(particulierDiv);
-            } else if (selectedValue === "3") {
                 presidenceDiv.hidden = false;
                 // Activer tous les éléments de la div sélectionnée
                 enableAllInputs(presidenceDiv);
+            
+            } else if(selectedValue !== "0") {
+                particulierDiv.hidden = false;
+                // Activer tous les éléments de la div sélectionnée
+                enableAllInputs(particulierDiv);
             }
         });
         function disableAllInputs(container) {
@@ -427,6 +439,9 @@
         "use strict";
         $('.add__devis__btn').click(function () {
             addDevis();
+        });
+        $('.add__facture__btn').click(function () {
+            addFacture();
         });
         // Function to calculate total price of an item
         function calculateItemTotal(row) {
@@ -494,6 +509,24 @@
             calculateTotal();
         });
 
+
+            function addFacture() {
+        var factureSection = $("#items__facture");
+        Facture = factureSection.find(".border-danger").length + 1;
+        var uniqueId = `facture__item_${Date.now()}`;
+
+        factureSection.append(`<div id="${uniqueId}" class="row border border-bottom-3 border-danger p-3 m-4 rounded-3">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary add__facture__btn">
+                    Ajouter un devis
+                </button>
+            </div>
+        </div>`);
+
+        // Correction du sélecteur pour attacher l'événement click
+        $(`#${uniqueId} .add__facture__btn`).click(addFacture);
+    }
+
         var TitreNbre = 0;
 
         function addDevis() {
@@ -518,6 +551,7 @@
                 </button>
             </div>
                 <div id="renovation__item"></div>
+            
             </div>`);
 
             $(".remove__devis__btn").hide();
@@ -645,7 +679,5 @@
     });
 
 </script>
-
-
 
 @endsection

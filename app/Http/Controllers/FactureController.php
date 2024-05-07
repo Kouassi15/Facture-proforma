@@ -58,7 +58,7 @@ class FactureController extends Controller
     public function particulier(){
         $clients = Client::all();
         $editeurs = Editeur::all();
-        return view('dashboard.pages.facture.proforma.facture',compact('clients','editeurs'));
+        return view('dashboard.pages.facture.creerfacture',compact('clients','editeurs'));
 
     }
 

@@ -34,7 +34,7 @@
                             <li><a href="{{route('facture.create')}}">Ajouter</a></li>
                             <li><a href="{{route('facture.index')}}">Liste des factures</a></li>
                             <li><a href="{{route('facture.historique')}}">Historique</a></li>
-                             <!-- <li><a href="{{route('facture.particulier')}}">Particulier</a></li> -->
+                             <li><a href="{{route('facture.particulier')}}">Particulier</a></li>
                         </ul>
                     </li>
                     <!-- <li class="nav-label">Components</li>
